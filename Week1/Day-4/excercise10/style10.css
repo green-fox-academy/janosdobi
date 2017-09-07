@@ -1,0 +1,30 @@
+p{
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+    font-size: 16px;
+    font-family: courier;
+    background-color: #FF6347;
+    color: white;
+    padding: 15px 25px 15px 25px;
+    background-size: 20% 20%;
+    background-image: url(duck.png);
+    background-repeat: no-repeat;
+    background-position: left;
+}
+p:nth-child(2){
+    background-color: #643579;
+    background-size: 60% 60%;
+    background-image: url(duck.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+p:nth-child(3){
+    background-color: #808080;
+    background-size: 20% 20%;
+    background-image: url(duck.png);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: 90%;
+}
