@@ -1,0 +1,40 @@
+h1{
+    font-family: Georgia;
+    color: #FF6145;
+}
+
+h2{
+    font-family: georgia;
+    color: #8A29E0;
+}
+
+p{
+    width: 35%;
+}
+
+ol{
+    list-style-type: upper-roman;
+
+}
+
+/*li:nth-child(1){
+    text-decoration: underline;
+}
+
+li:nth-child(2){
+    text-decoration: underline;
+}
+
+li:nth-child(3){
+    text-decoration: underline;
+}*/
+
+ol {
+    text-decoration: underline;
+    color: #FF77FF;
+}
+
+ol li:last-child{
+    color: black;
+    text-decoration: underline black
+    }   

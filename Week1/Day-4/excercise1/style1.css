@@ -1,0 +1,19 @@
+body{
+    margin: 50px;
+}
+
+p{
+    margin: 0px;
+    margin-top: 15px;
+    font-size: 36px;
+    border-style: solid;
+    border-width: 5px;
+    width: 320px;
+    height: 120px;
+    font-family: Arial;
+    padding-top: 10px;
+    padding-left: 10px;
+    background-color: #0E91A1;
+    border-color: #7DCE94;
+    color: #005667;
+}       
