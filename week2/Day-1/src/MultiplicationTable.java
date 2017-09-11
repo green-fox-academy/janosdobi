@@ -13,3 +13,21 @@
 // 8 * 15 = 120
 // 9 * 15 = 135
 // 10 * 15 = 150
+
+
+import java.util.Scanner;
+
+public class MultiplicationTable {
+    public static void main(String[] args) {
+
+        System.out.println("Please enter a number: ");
+        Scanner input = new Scanner(System.in);
+        int number = input.nextInt();
+
+        for(int i = 1; i <= 10; i++){
+            System.out.println(i + "*" + number + "=" + (i*number));
+        }
+
+    }
+
+}
