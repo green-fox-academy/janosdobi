@@ -12,3 +12,25 @@
 //
 // It should print: Sausage party
 // If no girls are coming, regardless the count of the people
+
+import java.util.Scanner;
+
+public class PartyIndicator{
+    public static void main(String[] args) {
+
+        System.out.println("Please enter two numbers: ");
+        Scanner input = new Scanner(System.in);
+        int girls = input.nextInt();
+        int boys = input.nextInt();
+
+        if((girls == boys) && ((girls + boys) > 20)){
+            System.out.println("The party is excellent!");
+        } else if(((girls + boys) > 20) && ((girls / boys) != 1)){
+            System.out.println("Quite cool party!");
+        } else if((girls + boys) < 15) {
+            System.out.println("Average party...");
+        } else if(girls < 1){
+            System.out.println("Sausage party");
+        }
+    }
+}
