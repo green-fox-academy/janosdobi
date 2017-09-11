@@ -11,3 +11,24 @@
 // 3
 // 4
 // 5
+
+import java.util.Scanner;
+
+public class CountFromTo {
+    public static void main(String[] args) {
+
+        System.out.println("Please enter two numbers: ");
+        Scanner input = new Scanner(System.in);
+        int firstNum = input.nextInt();
+        int secondNum = input.nextInt();
+
+        if ((secondNum) <= (firstNum)) {
+            System.out.println("The second number should be bigger!");
+        } else if (secondNum > firstNum) {
+            while (firstNum <= secondNum) {
+                System.out.println(firstNum);
+                firstNum++;
+            }
+        }
+    }
+}
