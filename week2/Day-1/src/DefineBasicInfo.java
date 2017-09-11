@@ -5,5 +5,13 @@ public class DefineBasicInfo {
     // Your age as an integer
     // Your height in meters as a double
     // Wether you are married or not as a boolean
+
+    String name = "Janos Dobi";
+    int age = 29;
+    double height = 1.75;
+    boolean married = false;
+
+    System.out.println(name + "\n" + age + "\n" + height + "\n" + married);
+
   }
 }
