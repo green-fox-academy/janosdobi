@@ -14,5 +14,15 @@ public class TwoNumbers {
 
     // Print the reminder of 22 divided by 13
 
+      int a = 22;
+      int b = 13;
+      System.out.println(a + b);
+      System.out.println(a - b);
+      System.out.println(a * b);
+      System.out.println((float) (a) / (float) (b));
+      System.out.println(a / b);
+      System.out.println(a % b);
+
+
   }
 }
