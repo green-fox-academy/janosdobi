@@ -11,7 +11,7 @@ public class PrintBigger{
         float numberTwo = input.nextFloat();
 
         if(numberOne > numberTwo){
-            System.out.println(numberOne);
+            System.out.println((int) (numberOne));
         } else {
             System.out.println((int) (numberTwo));
         }
