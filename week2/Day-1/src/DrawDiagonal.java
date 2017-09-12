@@ -20,10 +20,14 @@ public class DrawDiagonal {
     int multiplier = input.nextInt();
 
     for (int i = 1; i <= multiplier; i++) {
-        System.out.printf("*");
-        for(int j = 1; j < i; j++) {
-            System.out.printf("*");
+        for(int j = 1; j <= multiplier; j++) {
+            if (i == j || i == multiplier || j == multiplier || i == 1 || j == 1) {
+                System.out.print("%");
+            } else {
+                System.out.print(" ");
+                }
             }
+        System.out.println("");
         }
     }
 }
