@@ -20,10 +20,10 @@ public class DrawDiagonal {
     int multiplier = input.nextInt();
 
     for (int i = 1; i <= multiplier; i++) {
-            for(int j = 1; j < i; j++) {
-                System.out.printf("*");
+        System.out.printf("*");
+        for(int j = 1; j < i; j++) {
+            System.out.printf("*");
             }
-            System.out.println("*");
         }
     }
 }
