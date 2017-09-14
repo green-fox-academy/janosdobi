@@ -8,19 +8,14 @@ public class Reverse {
 
         int[] aj = {3, 4, 5, 6, 7};
         int c = 0;
-        for(int i = 0; i < aj.length - 1; i++) {
-            for (int j = 0; j < aj.length - i -1; j++) {
-                if (aj[j] < aj[j + 1]) {
-                    c = aj[j];
-                    aj[j] = aj[j + 1];
-                    aj[j + 1] = c;
-                }
-            }
+        for(int i = 0; i < (aj.length - 1)/2; i++) {
+            c = aj[i];
+            aj[i] = aj[aj.length - 1 - i];
+            aj[aj.length - 1 - i] = c;
         }
 
         for(int i = 0; i < aj.length; i++) {
             System.out.println(aj[i]);
         }
-
     }
 }
