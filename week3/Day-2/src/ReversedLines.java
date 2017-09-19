@@ -20,9 +20,8 @@ public class ReversedLines {
 
             for (String reversed : Files.readAllLines(myPath)) {
 
-                int length = reversed.length();
                 String correct = "";
-                for (int i = length - 1 ; i >= 0 ; i-- ) {
+                for (int i = reversed.length() - 1 ; i >= 0 ; i-- ) {
                     correct = correct + reversed.charAt(i);
                 }
                 correctList.add(correct);
