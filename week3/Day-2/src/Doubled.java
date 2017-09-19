@@ -16,17 +16,16 @@ public class Doubled {
     public static void decrypt(String fileName){
 
         Path myPath = Paths.get(fileName);
-        String duplicateString = "";
-        StringBuilder readableSB = new StringBuilder();
-        String readableString = "";
+        String output= "";
 
         try {
-            List<String> duplicateList = Files.readAllLines(myPath);
-            duplicateString = duplicateList.toString();
-            for (int i = 1; i < duplicateString.length(); i+= 2) {
-                readableSB.append(duplicateString.charAt(i));
+            for (String lines: Files.readAllLines(myPath)) {
+                for (int i = 0; i < lines.length(); i+= 2) {
+                    output += lines.charAt(i);
+                }
+                output += "\n";
             }
-            System.out.println(readableSB);
+            System.out.println(output);
 
         } catch (IOException e) {
 
