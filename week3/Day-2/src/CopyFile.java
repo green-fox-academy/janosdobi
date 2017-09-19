@@ -22,9 +22,7 @@ public class CopyFile {
             List<String> fromList = Files.readAllLines(fromPath);
             Files.write(toPath, fromList);
             List<String> toList = Files.readAllLines(toPath);
-            if(fromList.equals(toList)) {
-                status = true;
-            }
+            status = fromList.equals(toList);
         } catch (IOException e) {
 
         }
