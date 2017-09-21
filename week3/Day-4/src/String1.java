@@ -3,7 +3,7 @@
 
 public class String1 {
     public static void main(String[] args) {
-        System.out.println(string1("xaxaxaxax"));
+        System.out.println(string1("xxxaa"));
     }
     public static String string1(String inputString) {
         if (inputString.length() == 0) {

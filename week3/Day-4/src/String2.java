@@ -9,6 +9,6 @@ public class String2 {
             return "";
         }
         String firstChar = input.startsWith("x") ? "" : input.substring(0, 1);
-        return firstChar +  string2(input.substring(1));
+        return firstChar + string2(input.substring(1));
     }
 }
