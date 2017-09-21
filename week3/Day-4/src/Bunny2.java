@@ -11,7 +11,6 @@ public class Bunny2 {
         if(numBunnies == 0) {
             return 0;
         }
-
         return (numBunnies % 2 == 1) ? 2 + bunny2(numBunnies - 1) : 3 + bunny2(numBunnies - 1);
     }
 }
