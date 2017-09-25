@@ -4,7 +4,6 @@ public class PostIt {
     String textColor;
 }
 
-
 class myProgram {
     public static void main(String[] args) {
 
@@ -15,17 +14,15 @@ class myProgram {
         System.out.println(firstPostIt.text);
 
         PostIt secondPostIt = new PostIt();
-        firstPostIt.backgroundColor = "Pink";
-        firstPostIt.text = "Awesome";
-        firstPostIt.textColor = "Black";
-        System.out.println(firstPostIt.backgroundColor);
+        secondPostIt.backgroundColor = "Pink";
+        secondPostIt.text = "Awesome";
+        secondPostIt.textColor = "Black";
+        System.out.println(secondPostIt.backgroundColor);
 
         PostIt thirdPostIt = new PostIt();
-        firstPostIt.backgroundColor = "Yellow";
-        firstPostIt.text = "Superb!";
-        firstPostIt.textColor = "Green";
-        System.out.println(firstPostIt.textColor);
-
+        thirdPostIt.backgroundColor = "Yellow";
+        thirdPostIt.text = "Superb!";
+        thirdPostIt.textColor = "Green";
+        System.out.println(thirdPostIt.textColor);
     }
-
 }
