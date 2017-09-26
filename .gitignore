@@ -3,3 +3,5 @@ out
 *.xml
 *.iml
 *.json
+*.txt
+*.csv
