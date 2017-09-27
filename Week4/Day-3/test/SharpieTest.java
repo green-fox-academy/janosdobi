@@ -18,12 +18,6 @@ public class SharpieTest {
     }
 
     @Test
-    public void setNowidth() throws Exception {
-        Sharpie test = new Sharpie("red", 0f);
-        assertTrue(0f == test.width);
-    }
-
-    @Test
     public void setEmpty() throws Exception {
         Sharpie test = new Sharpie();
         assertTrue(0f == test.width);
@@ -34,4 +28,12 @@ public class SharpieTest {
         Sharpie test = new Sharpie("blue", 5.8f);
         assertTrue(5.8f == test.width);
     }
+
+    @Test
+    public void use() throws Exception {
+        Sharpie test = new Sharpie();
+        test.use();
+        assertTrue(95 == test.inkAmount);
+    }
+
 }

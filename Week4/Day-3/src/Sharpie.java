@@ -4,15 +4,16 @@ import java.util.List;
 public class Sharpie {
     String color;
     float width;
-    float inkAmount = 100;
+    float inkAmount;
 
     public Sharpie() {
-
+        inkAmount = 100;
     }
 
     public Sharpie(String color, float width){
         this.color = color;
         this.width = width;
+        inkAmount = 100;
     }
 
     public void use(){
