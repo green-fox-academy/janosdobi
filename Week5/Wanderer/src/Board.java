@@ -24,12 +24,20 @@ public class Board extends JComponent implements KeyListener {
     public void drawWall(Graphics g, int wallPosX, int wallPosY) {
         wall = new PositionedImage("images/wall.png", wallPosX, wallPosY);
         wall.draw(g);
-        wall.isItaWall = true;
     }
 
     public void drawFloor(Graphics g, int floorPosX, int floorPosY) {
         floor = new PositionedImage("images/floor.png", floorPosX, floorPosY);
         floor.draw(g);
+    }
+
+    public boolean isItNotaWall(int PosX, int PosY) {
+        for (int i = 0; i < wallPos.length; i++) {
+            if (wallPos[i][0] == PosX && wallPos[i][1] == PosY) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -85,28 +93,28 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_W && hero.charPosY > 0) {
-            if (hero.charPosY > 0) {
+            if (hero.charPosY > 0 && isItNotaWall(hero.charPosX, (hero.charPosY - 1))) {
                 hero.charPosY--;
                 hero.direction = "up";
             } else {
                 hero.direction = "up";
             }
         } else if(e.getKeyCode() == KeyEvent.VK_S) {
-            if (hero.charPosY < board.length - 1) {
+            if (hero.charPosY < board.length - 1 && isItNotaWall(hero.charPosX, (hero.charPosY + 1))) {
                 hero.charPosY++;
                 hero.direction = "down";
             } else {
                 hero.direction = "down";
             }
         } else if(e.getKeyCode() == KeyEvent.VK_D) {
-            if (hero.charPosX < board[0].length - 1) {
+            if (hero.charPosX < board[0].length - 1 && isItNotaWall((hero.charPosX + 1), hero.charPosY)) {
                 hero.charPosX++;
                 hero.direction = "right";
             } else {
                 hero.direction = "right";
             }
         } else if(e.getKeyCode() == KeyEvent.VK_A) {
-            if (hero.charPosX > 0) {
+            if (hero.charPosX > 0 && isItNotaWall((hero.charPosX - 1), hero.charPosY)) {
                 hero.charPosX--;
                 hero.direction = "left";
             } else {

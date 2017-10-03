@@ -8,7 +8,6 @@ public class PositionedImage {
 
     BufferedImage image;
     int posX, posY;
-    boolean isItaWall;
 
     public PositionedImage() {
 
