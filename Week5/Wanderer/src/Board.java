@@ -7,10 +7,15 @@ public class Board extends JComponent implements KeyListener {
 
     int posX;
     int posY;
+    int wallPosX;
+    int wallPosY;
+
 
     public Board() {
         posX = 0;
         posY = 0;
+        wallPosX = 72 * 3;
+        wallPosY = 0;
 
         // set the size of your draw board
         setPreferredSize(new Dimension(720, 720));
@@ -20,8 +25,7 @@ public class Board extends JComponent implements KeyListener {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        // here you have a 720x720 canvas
-        // you can create and draw an image using the class below e.g.
+        // Drawing floor
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 PositionedImage image = new PositionedImage("images/floor.png", posX, posY);
@@ -31,6 +35,49 @@ public class Board extends JComponent implements KeyListener {
             posX = 0;
             posY += 72;
         }
+        //Drawing walls
+        for (int i = 0; i < 2; i++) {
+            PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+            image.draw(graphics);
+            wallPosY += 72;
+        }
+        for (int i = 0; i < 3; i++) {
+            PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+            image.draw(graphics);
+            wallPosX -= 72;
+        }
+        wallPosY = 0;
+        wallPosX = 5 * 72;
+        for (int i = 0; i < 4; i++) {
+            PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+            image.draw(graphics);
+            wallPosY += 72;
+        }
+        for (int i = 0; i < 4; i++) {
+            PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+            image.draw(graphics);
+            wallPosX += 72;
+        }
+        wallPosY = 4 * 72;
+        wallPosX = 0;
+        for (int i = 0; i < 3; i++) {
+            PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+            image.draw(graphics);
+            wallPosX += 72;
+        }
+        for (int i = 0; i < 3; i++) {
+            PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+            image.draw(graphics);
+            wallPosY += 72;
+        }
+        wallPosY = 5 * 72;
+        wallPosX = 72;
+        for (int i = 0; i < 2; i++) {
+            PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+            image.draw(graphics);
+            wallPosY += 72;
+        }
+
     }
 
     // To be a KeyListener the class needs to have these 3 methods in it
