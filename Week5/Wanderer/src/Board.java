@@ -1,17 +1,15 @@
 import javax.swing.*;
-        import java.awt.*;
-        import java.awt.event.KeyEvent;
-        import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Board extends JComponent implements KeyListener {
 
-    int posX;
-    int posY;
     int [] [] board;
     int [] [] wallPos;
     Hero hero = new Hero();
+    PositionedImage wall;
+    PositionedImage floor;
 
     public Board() {
         // set the size of your draw board
@@ -24,14 +22,14 @@ public class Board extends JComponent implements KeyListener {
     }
 
     public void drawWall(Graphics g, int wallPosX, int wallPosY) {
-        PositionedImage image = new PositionedImage("images/wall.png", wallPosX, wallPosY);
-        image.draw(g);
+        wall = new PositionedImage("images/wall.png", wallPosX, wallPosY);
+        wall.draw(g);
+        wall.isItaWall = true;
     }
 
     public void drawFloor(Graphics g, int floorPosX, int floorPosY) {
-        PositionedImage image = new PositionedImage("images/floor.png", floorPosX, floorPosY);
-        image.draw(g);
-        image.isItaWall = true;
+        floor = new PositionedImage("images/floor.png", floorPosX, floorPosY);
+        floor.draw(g);
     }
 
     @Override
@@ -86,18 +84,34 @@ public class Board extends JComponent implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
-        if (e.getKeyCode() == KeyEvent.VK_W) {
-            hero.charPosY--;
-            hero.direction = "up";
+        if (e.getKeyCode() == KeyEvent.VK_W && hero.charPosY > 0) {
+            if (hero.charPosY > 0) {
+                hero.charPosY--;
+                hero.direction = "up";
+            } else {
+                hero.direction = "up";
+            }
         } else if(e.getKeyCode() == KeyEvent.VK_S) {
-            hero.charPosY++;
-            hero.direction = "down";
+            if (hero.charPosY < board.length - 1) {
+                hero.charPosY++;
+                hero.direction = "down";
+            } else {
+                hero.direction = "down";
+            }
         } else if(e.getKeyCode() == KeyEvent.VK_D) {
-            hero.charPosX++;
-            hero.direction = "right";
+            if (hero.charPosX < board[0].length - 1) {
+                hero.charPosX++;
+                hero.direction = "right";
+            } else {
+                hero.direction = "right";
+            }
         } else if(e.getKeyCode() == KeyEvent.VK_A) {
-            hero.charPosX--;
-            hero.direction = "left";
+            if (hero.charPosX > 0) {
+                hero.charPosX--;
+                hero.direction = "left";
+            } else {
+                hero.direction = "left";
+            }
         }
         // and redraw to have a new picture with the new coordinates
         repaint();

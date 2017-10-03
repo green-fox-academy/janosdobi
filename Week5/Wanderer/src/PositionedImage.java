@@ -10,6 +10,10 @@ public class PositionedImage {
     int posX, posY;
     boolean isItaWall;
 
+    public PositionedImage() {
+
+    }
+
     public PositionedImage(String filename, int posX, int posY) {
         this.posX = posX * 72;
         this.posY = posY * 72;
