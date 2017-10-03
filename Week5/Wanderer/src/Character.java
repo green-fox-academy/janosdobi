@@ -1,6 +1,5 @@
-public class Character {
+public class Character extends PositionedImage {
 
-    int charPosX;
-    int charPosY;
     int HP;
+
 }

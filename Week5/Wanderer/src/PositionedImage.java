@@ -14,8 +14,8 @@ public class PositionedImage {
     }
 
     public PositionedImage(String filename, int posX, int posY) {
-        this.posX = posX * 72;
-        this.posY = posY * 72;
+        this.posX = posX;
+        this.posY = posY;
         try {
             image = ImageIO.read(new File(filename));
         } catch (IOException e) {
@@ -26,7 +26,7 @@ public class PositionedImage {
 
     public void draw(Graphics graphics) {
         if (image != null) {
-            graphics.drawImage(image, posX, posY, null);
+            graphics.drawImage(image, posX * 72, posY * 72, null);
         }
     }
 }
