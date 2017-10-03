@@ -8,10 +8,11 @@ public class PositionedImage {
 
     BufferedImage image;
     int posX, posY;
+    boolean isItaWall;
 
     public PositionedImage(String filename, int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
+        this.posX = posX * 72;
+        this.posY = posY * 72;
         try {
             image = ImageIO.read(new File(filename));
         } catch (IOException e) {
