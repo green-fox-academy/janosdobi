@@ -1,11 +1,14 @@
 public class Skeleton extends Character {
 
+    protected boolean keyHolder;
+
+
     public Skeleton() {
         super("images/skeleton.png");
         setCharPos();
-        super.fullHP = 2 * level * super.d6;
-        super.dp = level / 2 * super.d6;
-        super.sp = level * super.d6 + level;
-        level = 1;
+        super.fullHP = 2 * Main.level * super.d6;
+        super.actHP = fullHP;
+        super.dp = Main.level / 2 * super.d6;
+        super.sp = Main.level * super.d6 + Main.level;
     }
 }

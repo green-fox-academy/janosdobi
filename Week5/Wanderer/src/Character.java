@@ -7,8 +7,8 @@ public class Character extends PositionedImage {
     protected int dp;
     protected int sp;
     protected int d6;
-    protected int level;
     boolean alive;
+    private String name;
 
     public Character() {
         d6 = (int) (1 + Math.random() * 6);
@@ -21,9 +21,19 @@ public class Character extends PositionedImage {
         alive = true;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void drawStats(Graphics graphics, int posX, int posY) {
+        graphics.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+        graphics.drawString(name + " (Level " + Main.level + ") HP: " + actHP + "/" + fullHP +
+                " | DP: " + dp + " | SP: " + sp, posX, posY);
+    }
+
     public void strike(Character another) {
-        if (another.dp < (sp + 2 * d6)) {
-            another.actHP -= (sp + 2 * d6 - another.dp);
+        if (another.dp < (this.sp + 2 * this.d6)) {
+            another.actHP -= (this.sp + 2 * d6 - another.dp);
         }
     }
 
@@ -44,16 +54,8 @@ public class Character extends PositionedImage {
         }
     }
 
-    public void drawStats(Graphics graphics) {
-        graphics.setFont(new Font("TimesRoman", Font.PLAIN, 18));
-        graphics.drawString("Hero (Level " + level + ") HP: " + actHP + "/" + fullHP +
-                " | DP: " + dp + " | SP: " + sp, 10, 820);
-    }
-
     public void die() {
-        if (actHP <= 0) {
-            this.image = null;
-            alive = false;
-        }
+        this.alive = false;
+        this.image = null;
     }
 }

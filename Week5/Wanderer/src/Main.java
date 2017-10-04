@@ -2,10 +2,15 @@ import javax.swing.*;
 
 public class Main {
 
+    static int level;
+
     public static void main(String[] args) {
+
+        level = 1;
+
         // Here is how you set up a new window and adding our board to it
         JFrame frame = new JFrame("RPG Game");
-        Board board = new Board();
+        Board board = new Board(level);
         frame.add(board);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

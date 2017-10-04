@@ -17,7 +17,7 @@ public class Hero extends Character {
         super.dp = 2 * super.d6;
         super.sp = 5 + super.d6;
         super.actHP = super.fullHP;
-        super.level = 1;
+        super.setName("Jozsi a baszo");
     }
 
     public void setImage(int direction) {
@@ -28,7 +28,7 @@ public class Hero extends Character {
                 super.image = ImageIO.read(new File("images/hero-up.png"));
             } else if (direction == 1) {
                 super.image = ImageIO.read(new File("images/hero-right.png"));
-            } else if (direction == 3){
+            } else if (direction == 3) {
                 super.image = ImageIO.read(new File("images/hero-left.png"));
             }
         } catch (IOException e) {

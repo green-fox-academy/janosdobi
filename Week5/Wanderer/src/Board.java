@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Scanner;
 
 public class Board extends JComponent implements KeyListener {
 
@@ -16,12 +15,15 @@ public class Board extends JComponent implements KeyListener {
     Boss boss;
     ListofSkeletons skeletons;
     JTextField stats;
+    protected int level;
+    protected boolean levelUp;
 
-    public Board() {
+    public Board(int level) {
         // set the size of your draw board
         setPreferredSize(new Dimension(720, 870));
         setVisible(true);
         keysPressed = 0;
+        this.level = level;
         tilesX = 10;
         tilesY = 11;
         wallPos = new int[][]{{3, 0}, {3, 1}, {3, 2}, {2, 2}, {1, 2}, {5, 0}, {5, 1}, {5, 2}, {5, 3}, {5, 4}, {7, 1}, {8, 1}, {7, 2}, {8, 2},
@@ -38,10 +40,12 @@ public class Board extends JComponent implements KeyListener {
         skeletons = new ListofSkeletons();
         for (int i = 0; i < 3; i++) {
             skeletons.add(new Skeleton());
+            skeletons.get(i).setName((i == 0) ? "Skeleton " + (i + 1) + ", the Keyholder!" : "Skeleton " + (i + 1));
             while(isItaWall(skeletons.get(i).posX, skeletons.get(i).posY) || (isItOccupied(skeletons.get(i).posX, skeletons.get(i).posY))) {
                 skeletons.get(i).setCharPos();
             }
         }
+        skeletons.get(0).keyHolder = true;
         stats = new JTextField();
     }
 
@@ -75,12 +79,26 @@ public class Board extends JComponent implements KeyListener {
         }
 
         //Draw statBox
+        hero.drawStats(graphics, 10, 820);
 
-        hero.drawStats(graphics);
+        //Battle
+        for (int i = 0; i < skeletons.size(); i++) {
+            if (hero.posX == skeletons.get(i).posX && hero.posY == skeletons.get(i).posY) {
+                skeletons.get(i).drawStats(graphics, 10, 840);
+                battle(skeletons.get(i));
+            }
+        }
+        if (hero.posX == boss.posX && hero.posY == boss.posY) {
+            boss.drawStats(graphics, 10, 840);
+            battle(boss);
+        }
+
+        if (!skeletons.get(0).alive) {
+            levelUp = true;
+        }
+
     }
 
-
-    // To be a KeyListener the class needs to have these 3 methods in it
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -152,7 +170,6 @@ public class Board extends JComponent implements KeyListener {
                     boss.moveChar(tempBoss);
                 }
             }
-        }
             for (int i = 0; i < skeletons.size(); i++) {
                 int tempSkeletons = (int) (Math.random() * 3);
                 if (tempSkeletons == 0) {
@@ -176,12 +193,9 @@ public class Board extends JComponent implements KeyListener {
                     }
                 }
             }
+        }
         // and redraw to have a new picture with the new coordinates
         repaint();
-
-/*        if (hero.posX == boss.posX && hero.posY == boss.posY) {
-            battle(boss);*/
-        //}
     }
 
     public boolean isItaWall(int posX, int posY) {
@@ -199,14 +213,16 @@ public class Board extends JComponent implements KeyListener {
         }
         return false;
     }
+
     public void battle(Character character) {
-        Scanner inputSpace = new Scanner(System.in);
-        while (character.alive && hero.alive) {
-            String command = inputSpace.next();
-            if (command.equals(" ")) {
-                hero.strike(character);
-                character.strike(hero);
-            }
+        while (character.actHP > 0 && hero.actHP > 0) {
+            hero.strike(character);
+            character.strike(hero);
+        }
+        if (character.actHP <= 0) {
+            character.die();
+        } else if (hero.actHP <= 0) {
+            hero.die();
         }
     }
 }
