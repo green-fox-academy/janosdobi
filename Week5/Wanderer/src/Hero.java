@@ -35,4 +35,20 @@ public class Hero extends Character {
             e.printStackTrace();
         }
     }
+
+    public void moveChar(int direction) {
+        if (direction == 0) {
+            super.posY--;
+            setImage(0);
+        } else if (direction == 2) {
+            super.posY++;
+            setImage(2);
+        } else if (direction == 1) {
+            super.posX++;
+            setImage(1);
+        } else {
+            super.posX--;
+            setImage(3);
+        }
+    }
 }

@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.concurrent.TimeUnit;
 
 public class Board extends JComponent implements KeyListener {
 
@@ -77,7 +78,7 @@ public class Board extends JComponent implements KeyListener {
 
         //Battle
         for (int i = 0; i < enemies.size(); i++) {
-            if (hero.posX == enemies.get(i).posX && hero.posY == enemies.get(i).posY) {
+            if (hero.posX == enemies.get(i).posX && hero.posY == enemies.get(i).posY && enemies.get(i).alive) {
                 enemies.get(i).drawStats(graphics, 10, 840);
                 battle(enemies.get(i));
             }
@@ -106,7 +107,6 @@ public class Board extends JComponent implements KeyListener {
             keysPressed++;
             if (hero.posY > 0 && !isItaWall(hero.posX, (hero.posY - 1))) {
                 hero.moveChar(0);
-                hero.setImage(0);
             } else {
                 hero.setImage(0);
             }
@@ -114,7 +114,6 @@ public class Board extends JComponent implements KeyListener {
             keysPressed++;
             if (hero.posY < tilesY - 1 && !isItaWall(hero.posX, (hero.posY + 1))) {
                 hero.moveChar(2);
-                hero.setImage(2);
             } else {
                 hero.setImage(2);
             }
@@ -122,7 +121,6 @@ public class Board extends JComponent implements KeyListener {
             keysPressed++;
             if (hero.posX < tilesX - 1 && !isItaWall((hero.posX + 1), hero.posY)) {
                 hero.moveChar(1);
-                hero.setImage(1);
             } else {
                 hero.setImage(1);
             }
@@ -130,14 +128,12 @@ public class Board extends JComponent implements KeyListener {
             keysPressed++;
             if (hero.posX > 0 && !isItaWall((hero.posX - 1), hero.posY)) {
                 hero.moveChar(3);
-                hero.setImage(3);
             } else {
                 hero.setImage(3);
             }
         }
 
         //Move enemies
-
         if (keysPressed % 2 == 0) {
             for (int i = 0; i < enemies.size(); i++) {
                 int temp = (int) (Math.random() * 3);
