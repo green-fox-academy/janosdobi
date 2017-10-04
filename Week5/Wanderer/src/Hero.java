@@ -5,7 +5,6 @@ import java.io.IOException;
 public class Hero extends Character {
 
     private String direction;
-    protected int level;
 
 
     public Hero(int posX, int posY) {
@@ -18,9 +17,9 @@ public class Hero extends Character {
         super.dp = 2 * super.d6;
         super.sp = 5 + super.d6;
         super.actHP = super.fullHP;
-        level = 1;
-
+        super.level = 1;
     }
+
     public void setImage(String direction) {
         try {
             if (direction == "down") {
@@ -36,5 +35,4 @@ public class Hero extends Character {
             e.printStackTrace();
         }
     }
-
 }

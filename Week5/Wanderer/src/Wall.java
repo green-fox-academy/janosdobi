@@ -8,5 +8,4 @@ public class Wall extends PositionedImage {
     public String toString() {
         return "[" + posX + ", " + posY + "]";
     }
-
 }
