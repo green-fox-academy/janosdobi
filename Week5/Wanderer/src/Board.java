@@ -8,6 +8,7 @@ public class Board extends JComponent implements KeyListener {
     private int tilesX;
     private int tilesY;
     private int[][] wallPos;
+    private int keysPressed;
     Hero hero;
     Wall wall;
     Floor floor;
@@ -19,6 +20,7 @@ public class Board extends JComponent implements KeyListener {
         // set the size of your draw board
         setPreferredSize(new Dimension(720, 850));
         setVisible(true);
+        keysPressed = 0;
         tilesX = 10;
         tilesY = 11;
         wallPos = new int[][]{{3, 0}, {3, 1}, {3, 2}, {2, 2}, {1, 2}, {5, 0}, {5, 1}, {5, 2}, {5, 3}, {5, 4}, {7, 1}, {8, 1}, {7, 2}, {8, 2},
@@ -29,14 +31,14 @@ public class Board extends JComponent implements KeyListener {
 
         boss = new Boss();
         while(isItaWall(boss.posX, boss.posY) || ((hero.posY == boss.posY) && (hero.posX == boss.posY))) {
-            boss.setBossPos();
+            boss.setCharPos();
         }
 
         skeletons = new ListofSkeletons();
         for (int i = 0; i < 3; i++) {
             skeletons.add(new Skeleton());
             while(isItaWall(skeletons.get(i).posX, skeletons.get(i).posY) || (isItOccupied(skeletons.get(i).posX, skeletons.get(i).posY))) {
-                skeletons.get(i).setSkeletonPos();
+                skeletons.get(i).setCharPos();
             }
         }
         stats = new JTextField();
@@ -86,42 +88,77 @@ public class Board extends JComponent implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
     }
 
-    // But actually we can use just this one for our goals here
+    // Move hero
+
     @Override
     public void keyReleased(KeyEvent e) {
-        // When the up or down keys hit, we change the position of our box
-        if (e.getKeyCode() == KeyEvent.VK_W && hero.posY > 0) {
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            keysPressed++;
             if (hero.posY > 0 && !isItaWall(hero.posX, (hero.posY - 1))) {
-                hero.posY--;
-                hero.setImage("up");
+                hero.moveChar(0);
+                hero.setImage(0);
             } else {
-                hero.setImage("up");
+                hero.setImage(0);
             }
-        } else if(e.getKeyCode() == KeyEvent.VK_S) {
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {
+            keysPressed++;
             if (hero.posY < tilesY - 1 && !isItaWall(hero.posX, (hero.posY + 1))) {
-                hero.posY++;
-                hero.setImage("down");
+                hero.moveChar(2);
+                hero.setImage(2);
             } else {
-                hero.setImage("down");
+                hero.setImage(2);
             }
         } else if(e.getKeyCode() == KeyEvent.VK_D) {
+            keysPressed++;
             if (hero.posX < tilesX - 1 && !isItaWall((hero.posX + 1), hero.posY)) {
-                hero.posX++;
-                hero.setImage("right");
+                hero.moveChar(1);
+                hero.setImage(1);
             } else {
-                hero.setImage("right");
+                hero.setImage(1);
             }
         } else if(e.getKeyCode() == KeyEvent.VK_A) {
+            keysPressed++;
             if (hero.posX > 0 && !isItaWall((hero.posX - 1), hero.posY)) {
-                hero.posX--;
-                hero.setImage("left");
+                hero.moveChar(3);
+                hero.setImage(3);
             } else {
-                hero.setImage("left");
+                hero.setImage(3);
             }
         }
+
+        //Move enemies
+
+        if (keysPressed % 2 == 0) {
+            int tempBoss = (int) (Math.random() * 3);
+            if (tempBoss == 0) {
+                if (boss.posY > 0 && !isItaWall(boss.posX, (boss.posY - 1))) {
+                    boss.moveChar(tempBoss);
+                }
+            }
+            if (tempBoss == 1) {
+                if (boss.posX < tilesX - 1 && !isItaWall((boss.posX + 1), boss.posY)) {
+                    boss.moveChar(tempBoss);
+                }
+            }
+            if (tempBoss == 2) {
+                if (boss.posY < tilesY - 1 && !isItaWall(boss.posX, (boss.posY + 1))) {
+                    boss.moveChar(tempBoss);
+                }
+            }
+
+            if (tempBoss == 3) {
+                if (boss.posX > 0 && !isItaWall((boss.posX - 1), boss.posY)) {
+                    boss.moveChar(tempBoss);
+                }
+            }
+        }
+/*            for (int i = 0; i < skeletons.size(); i++) {
+                int tempSkeletons = (int) (Math.random() * 3);
+                skeletons.get(i).moveChar(tempSkeletons);
+            }*/
+
         // and redraw to have a new picture with the new coordinates
         repaint();
     }
@@ -141,5 +178,4 @@ public class Board extends JComponent implements KeyListener {
         }
         return false;
     }
-
 }

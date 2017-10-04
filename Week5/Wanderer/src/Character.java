@@ -21,4 +21,21 @@ public class Character extends PositionedImage {
             another.actHP -= (sp + 2 * d6 - another.dp);
         }
     }
+
+    public void setCharPos() {
+        super.posX = ((int) (Math.random() * 10));
+        super.posY = ((int) (Math.random() * 11));
+    }
+
+    public void moveChar(int direction) {
+        if (direction == 0) {
+            super.posY--;
+        } else if (direction == 2) {
+            super.posY++;
+        } else if (direction == 1) {
+            super.posX++;
+        } else {
+            super.posX--;
+        }
+    }
 }
