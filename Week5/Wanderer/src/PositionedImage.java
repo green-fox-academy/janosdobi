@@ -13,6 +13,14 @@ public class PositionedImage {
 
     }
 
+    public PositionedImage(String filename) {
+        try {
+            image = ImageIO.read(new File(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public PositionedImage(String filename, int posX, int posY) {
         this.posX = posX;
         this.posY = posY;

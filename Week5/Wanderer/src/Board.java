@@ -11,26 +11,35 @@ public class Board extends JComponent implements KeyListener {
     Hero hero;
     Wall wall;
     Floor floor;
+    Boss boss;
+    ListofSkeletons skeletons;
+    JTextField stats;
 
     public Board() {
         // set the size of your draw board
-        setPreferredSize(new Dimension(720, 792));
+        setPreferredSize(new Dimension(720, 850));
         setVisible(true);
         tilesX = 10;
         tilesY = 11;
         wallPos = new int[][]{{3, 0}, {3, 1}, {3, 2}, {2, 2}, {1, 2}, {5, 0}, {5, 1}, {5, 2}, {5, 3}, {5, 4}, {7, 1}, {8, 1}, {7, 2}, {8, 2},
                 {0, 4}, {1, 4}, {2, 4}, {3, 4}, {6, 4}, {7, 4}, {8, 4}, {1, 5}, {3, 5}, {8, 5}, {1, 6}, {3, 6}, {5, 6}, {6, 6}, {8, 6},
                 {5, 7}, {6, 7}, {8, 7}, {1, 8}, {2, 8}, {3, 8}, {8, 8}, {3, 9}, {5, 9}, {6, 9}, {8, 9}, {1, 10}, {3, 10}, {5, 10}};
-        hero = new Hero( 0, 0);
-    }
 
-    public boolean isItaWall(int PosX, int PosY) {
-        for (int i = 0; i < wallPos.length; i++) {
-            if (wallPos[i][0] == PosX && wallPos[i][1] == PosY) {
-                return false;
+        hero = new Hero( 0, 0);
+
+        boss = new Boss();
+        while(isItaWall(boss.posX, boss.posY) || ((hero.posY == boss.posY) && (hero.posX == boss.posY))) {
+            boss.setBossPos();
+        }
+
+        skeletons = new ListofSkeletons();
+        for (int i = 0; i < 3; i++) {
+            skeletons.add(new Skeleton());
+            while(isItaWall(skeletons.get(i).posX, skeletons.get(i).posY) || (isItOccupied(skeletons.get(i).posX, skeletons.get(i).posY))) {
+                skeletons.get(i).setSkeletonPos();
             }
         }
-        return true;
+        stats = new JTextField();
     }
 
     @Override
@@ -53,6 +62,19 @@ public class Board extends JComponent implements KeyListener {
 
         //Draw hero
         hero.draw(graphics);
+
+        //Draw boss
+        boss.draw(graphics);
+
+        //Draw skeletons
+        for (int i = 0; i < skeletons.size(); i++) {
+            skeletons.get(i).draw(graphics);
+        }
+
+        //Draw statBox
+        graphics.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        graphics.drawString("Hero (Level " + hero.level + ") HP: " + hero.actHP + "/" + hero.fullHP +
+                " | DP: " + hero.dp + " | SP: " + hero.sp, 10, 820);
     }
 
 
@@ -72,28 +94,28 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_W && hero.posY > 0) {
-            if (hero.posY > 0 && isItaWall(hero.posX, (hero.posY - 1))) {
+            if (hero.posY > 0 && !isItaWall(hero.posX, (hero.posY - 1))) {
                 hero.posY--;
                 hero.setImage("up");
             } else {
                 hero.setImage("up");
             }
         } else if(e.getKeyCode() == KeyEvent.VK_S) {
-            if (hero.posY < tilesY - 1 && isItaWall(hero.posX, (hero.posY + 1))) {
+            if (hero.posY < tilesY - 1 && !isItaWall(hero.posX, (hero.posY + 1))) {
                 hero.posY++;
                 hero.setImage("down");
             } else {
                 hero.setImage("down");
             }
         } else if(e.getKeyCode() == KeyEvent.VK_D) {
-            if (hero.posX < tilesX - 1 && isItaWall((hero.posX + 1), hero.posY)) {
+            if (hero.posX < tilesX - 1 && !isItaWall((hero.posX + 1), hero.posY)) {
                 hero.posX++;
                 hero.setImage("right");
             } else {
                 hero.setImage("right");
             }
         } else if(e.getKeyCode() == KeyEvent.VK_A) {
-            if (hero.posX > 0 && isItaWall((hero.posX - 1), hero.posY)) {
+            if (hero.posX > 0 && !isItaWall((hero.posX - 1), hero.posY)) {
                 hero.posX--;
                 hero.setImage("left");
             } else {
@@ -103,4 +125,21 @@ public class Board extends JComponent implements KeyListener {
         // and redraw to have a new picture with the new coordinates
         repaint();
     }
+
+    public boolean isItaWall(int posX, int posY) {
+        for (int i = 0; i < wallPos.length; i++) {
+            if (wallPos[i][0] == posX && wallPos[i][1] == posY) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isItOccupied(int posX, int posY) {
+        if((posX == hero.posX && posY == hero.posY) || (posX == boss.posX && posY == boss.posY)) {
+            return true;
+        }
+        return false;
+    }
+
 }

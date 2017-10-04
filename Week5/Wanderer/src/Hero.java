@@ -4,13 +4,21 @@ import java.io.IOException;
 
 public class Hero extends Character {
 
-    String direction;
+    private String direction;
+    protected int level;
+
 
     public Hero(int posX, int posY) {
+        super();
         super.posX = posX * 72;
         super.posY = posY * 72;
         direction = "down";
-        setImage("down");
+        setImage(direction);
+        super.fullHP = 20 + 3 * super.d6;
+        super.dp = 2 * super.d6;
+        super.sp = 5 + super.d6;
+        super.actHP = super.fullHP;
+        level = 1;
 
     }
     public void setImage(String direction) {
