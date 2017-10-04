@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Scanner;
 
 public class Board extends JComponent implements KeyListener {
 
@@ -18,7 +19,7 @@ public class Board extends JComponent implements KeyListener {
 
     public Board() {
         // set the size of your draw board
-        setPreferredSize(new Dimension(720, 850));
+        setPreferredSize(new Dimension(720, 870));
         setVisible(true);
         keysPressed = 0;
         tilesX = 10;
@@ -74,9 +75,8 @@ public class Board extends JComponent implements KeyListener {
         }
 
         //Draw statBox
-        graphics.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        graphics.drawString("Hero (Level " + hero.level + ") HP: " + hero.actHP + "/" + hero.fullHP +
-                " | DP: " + hero.dp + " | SP: " + hero.sp, 10, 820);
+
+        hero.drawStats(graphics);
     }
 
 
@@ -147,20 +147,41 @@ public class Board extends JComponent implements KeyListener {
                     boss.moveChar(tempBoss);
                 }
             }
-
             if (tempBoss == 3) {
                 if (boss.posX > 0 && !isItaWall((boss.posX - 1), boss.posY)) {
                     boss.moveChar(tempBoss);
                 }
             }
         }
-/*            for (int i = 0; i < skeletons.size(); i++) {
+            for (int i = 0; i < skeletons.size(); i++) {
                 int tempSkeletons = (int) (Math.random() * 3);
-                skeletons.get(i).moveChar(tempSkeletons);
-            }*/
-
+                if (tempSkeletons == 0) {
+                    if (skeletons.get(i).posY > 0 && !isItaWall(skeletons.get(i).posX, (skeletons.get(i).posY - 1))) {
+                        skeletons.get(i).moveChar(tempSkeletons);
+                    }
+                }
+                if (tempSkeletons == 1) {
+                    if (skeletons.get(i).posX < tilesX - 1 && !isItaWall((skeletons.get(i).posX + 1), skeletons.get(i).posY)) {
+                        skeletons.get(i).moveChar(tempSkeletons);
+                    }
+                }
+                if (tempSkeletons == 2) {
+                    if (skeletons.get(i).posY < tilesY - 1 && !isItaWall(skeletons.get(i).posX, (skeletons.get(i).posY + 1))) {
+                        skeletons.get(i).moveChar(tempSkeletons);
+                    }
+                }
+                if (tempSkeletons == 3) {
+                    if (skeletons.get(i).posX > 0 && !isItaWall((skeletons.get(i).posX - 1), skeletons.get(i).posY)) {
+                        skeletons.get(i).moveChar(tempSkeletons);
+                    }
+                }
+            }
         // and redraw to have a new picture with the new coordinates
         repaint();
+
+/*        if (hero.posX == boss.posX && hero.posY == boss.posY) {
+            battle(boss);*/
+        //}
     }
 
     public boolean isItaWall(int posX, int posY) {
@@ -177,5 +198,15 @@ public class Board extends JComponent implements KeyListener {
             return true;
         }
         return false;
+    }
+    public void battle(Character character) {
+        Scanner inputSpace = new Scanner(System.in);
+        while (character.alive && hero.alive) {
+            String command = inputSpace.next();
+            if (command.equals(" ")) {
+                hero.strike(character);
+                character.strike(hero);
+            }
+        }
     }
 }

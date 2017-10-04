@@ -4,14 +4,14 @@ import java.io.IOException;
 
 public class Hero extends Character {
 
-    private String direction;
+    private int direction;
 
 
     public Hero(int posX, int posY) {
         super();
         super.posX = posX * 72;
         super.posY = posY * 72;
-        int direction = 2;
+        direction = 2;
         setImage(direction);
         super.fullHP = 20 + 3 * super.d6;
         super.dp = 2 * super.d6;
