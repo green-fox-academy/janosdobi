@@ -17,7 +17,7 @@ public class Hero extends Character {
         super.dp = 2 * super.d6;
         super.sp = 5 + super.d6;
         super.actHP = super.fullHP;
-        super.setName("Jozsi a baszo");
+        super.setName("Jozsi");
     }
 
     public void setImage(int direction) {

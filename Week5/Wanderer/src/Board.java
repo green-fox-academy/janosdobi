@@ -12,9 +12,7 @@ public class Board extends JComponent implements KeyListener {
     Hero hero;
     Wall wall;
     Floor floor;
-    Boss boss;
-    ListofSkeletons skeletons;
-    JTextField stats;
+    ListOfEnemies enemies;
     protected int level;
     protected boolean levelUp;
 
@@ -32,21 +30,20 @@ public class Board extends JComponent implements KeyListener {
 
         hero = new Hero( 0, 0);
 
-        boss = new Boss();
-        while(isItaWall(boss.posX, boss.posY) || ((hero.posY == boss.posY) && (hero.posX == boss.posY))) {
-            boss.setCharPos();
+        enemies = new ListOfEnemies();
+        enemies.add(new Boss());
+        while(isItaWall(enemies.get(0).posX, enemies.get(0).posY) || ((hero.posY == enemies.get(0).posY) && (hero.posX == enemies.get(0).posY))) {
+            enemies.get(0).setCharPos();
         }
-
-        skeletons = new ListofSkeletons();
         for (int i = 0; i < 3; i++) {
-            skeletons.add(new Skeleton());
-            skeletons.get(i).setName((i == 0) ? "Skeleton " + (i + 1) + ", the Keyholder!" : "Skeleton " + (i + 1));
-            while(isItaWall(skeletons.get(i).posX, skeletons.get(i).posY) || (isItOccupied(skeletons.get(i).posX, skeletons.get(i).posY))) {
-                skeletons.get(i).setCharPos();
+            enemies.add(new Skeleton());
+        }
+        for (int i = 1; i < enemies.size(); i++) {
+            enemies.get(i).setName((i == 1) ? "Skeleton " + i + ", the Keyholder!" : "Skeleton " + i);
+            while(isItaWall(enemies.get(i).posX, enemies.get(i).posY) || (isItOccupied(enemies.get(i).posX, enemies.get(i).posY))) {
+                enemies.get(i).setCharPos();
             }
         }
-        skeletons.get(0).keyHolder = true;
-        stats = new JTextField();
     }
 
     @Override
@@ -70,30 +67,23 @@ public class Board extends JComponent implements KeyListener {
         //Draw hero
         hero.draw(graphics);
 
-        //Draw boss
-        boss.draw(graphics);
-
-        //Draw skeletons
-        for (int i = 0; i < skeletons.size(); i++) {
-            skeletons.get(i).draw(graphics);
+        //Draw enemies
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).draw(graphics);
         }
 
         //Draw statBox
         hero.drawStats(graphics, 10, 820);
 
         //Battle
-        for (int i = 0; i < skeletons.size(); i++) {
-            if (hero.posX == skeletons.get(i).posX && hero.posY == skeletons.get(i).posY) {
-                skeletons.get(i).drawStats(graphics, 10, 840);
-                battle(skeletons.get(i));
+        for (int i = 0; i < enemies.size(); i++) {
+            if (hero.posX == enemies.get(i).posX && hero.posY == enemies.get(i).posY) {
+                enemies.get(i).drawStats(graphics, 10, 840);
+                battle(enemies.get(i));
             }
         }
-        if (hero.posX == boss.posX && hero.posY == boss.posY) {
-            boss.drawStats(graphics, 10, 840);
-            battle(boss);
-        }
 
-        if (!skeletons.get(0).alive) {
+        if (!enemies.get(0).alive) {
             levelUp = true;
         }
 
@@ -149,47 +139,26 @@ public class Board extends JComponent implements KeyListener {
         //Move enemies
 
         if (keysPressed % 2 == 0) {
-            int tempBoss = (int) (Math.random() * 3);
-            if (tempBoss == 0) {
-                if (boss.posY > 0 && !isItaWall(boss.posX, (boss.posY - 1))) {
-                    boss.moveChar(tempBoss);
-                }
-            }
-            if (tempBoss == 1) {
-                if (boss.posX < tilesX - 1 && !isItaWall((boss.posX + 1), boss.posY)) {
-                    boss.moveChar(tempBoss);
-                }
-            }
-            if (tempBoss == 2) {
-                if (boss.posY < tilesY - 1 && !isItaWall(boss.posX, (boss.posY + 1))) {
-                    boss.moveChar(tempBoss);
-                }
-            }
-            if (tempBoss == 3) {
-                if (boss.posX > 0 && !isItaWall((boss.posX - 1), boss.posY)) {
-                    boss.moveChar(tempBoss);
-                }
-            }
-            for (int i = 0; i < skeletons.size(); i++) {
-                int tempSkeletons = (int) (Math.random() * 3);
-                if (tempSkeletons == 0) {
-                    if (skeletons.get(i).posY > 0 && !isItaWall(skeletons.get(i).posX, (skeletons.get(i).posY - 1))) {
-                        skeletons.get(i).moveChar(tempSkeletons);
+            for (int i = 0; i < enemies.size(); i++) {
+                int temp = (int) (Math.random() * 3);
+                if (temp == 0) {
+                    if (enemies.get(i).posY > 0 && !isItaWall(enemies.get(i).posX, (enemies.get(i).posY - 1))) {
+                        enemies.get(i).moveChar(temp);
                     }
                 }
-                if (tempSkeletons == 1) {
-                    if (skeletons.get(i).posX < tilesX - 1 && !isItaWall((skeletons.get(i).posX + 1), skeletons.get(i).posY)) {
-                        skeletons.get(i).moveChar(tempSkeletons);
+                if (temp == 1) {
+                    if (enemies.get(i).posX < tilesX - 1 && !isItaWall((enemies.get(i).posX + 1), enemies.get(i).posY)) {
+                        enemies.get(i).moveChar(temp);
                     }
                 }
-                if (tempSkeletons == 2) {
-                    if (skeletons.get(i).posY < tilesY - 1 && !isItaWall(skeletons.get(i).posX, (skeletons.get(i).posY + 1))) {
-                        skeletons.get(i).moveChar(tempSkeletons);
+                if (temp == 2) {
+                    if (enemies.get(i).posY < tilesY - 1 && !isItaWall(enemies.get(i).posX, (enemies.get(i).posY + 1))) {
+                        enemies.get(i).moveChar(temp);
                     }
                 }
-                if (tempSkeletons == 3) {
-                    if (skeletons.get(i).posX > 0 && !isItaWall((skeletons.get(i).posX - 1), skeletons.get(i).posY)) {
-                        skeletons.get(i).moveChar(tempSkeletons);
+                if (temp == 3) {
+                    if (enemies.get(i).posX > 0 && !isItaWall((enemies.get(i).posX - 1), enemies.get(i).posY)) {
+                        enemies.get(i).moveChar(temp);
                     }
                 }
             }
@@ -208,7 +177,7 @@ public class Board extends JComponent implements KeyListener {
     }
 
     public boolean isItOccupied(int posX, int posY) {
-        if((posX == hero.posX && posY == hero.posY) || (posX == boss.posX && posY == boss.posY)) {
+        if((posX == hero.posX && posY == hero.posY) || (posX == enemies.get(0).posX && posY == enemies.get(0).posY)) {
             return true;
         }
         return false;
