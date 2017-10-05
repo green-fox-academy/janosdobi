@@ -7,17 +7,19 @@ public class Hero extends Character {
     private int direction;
 
 
-    public Hero() {
+    public Hero(int level) {
         super();
         super.posX = 0;
         super.posY = 0;
         direction = 2;
         setImage(direction);
-        super.fullHP = 20 + 3 * super.d6;
-        super.dp = 2 * super.d6;
-        super.sp = 5 + super.d6;
+        super.level = level - 1;
+        super.fullHP = 20 + 3 * super.d6 + level * super.d6;
+        super.dp = 2 * super.d6 + level * super.d6;
+        super.sp = 5 + super.d6 + level * super.d6;
         super.actHP = super.fullHP;
         super.setName("Jozsi a kiraly");
+        super.level = level - 1;
     }
 
     public void setImage(int direction) {

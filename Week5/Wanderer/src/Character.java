@@ -9,7 +9,8 @@ public class Character extends PositionedImage {
     protected int d6;
     protected boolean alive;
     private String name;
-    protected boolean isItInBattle;
+    protected int level;
+    private boolean keyHolder;
 
     public Character() {
         d6 = (int) (1 + Math.random() * 6);
@@ -28,7 +29,7 @@ public class Character extends PositionedImage {
 
     public void drawStats(Graphics graphics, int posX, int posY) {
         graphics.setFont(new Font("TimesRoman", Font.PLAIN, 18));
-        graphics.drawString(name + " (Level " + Main.level + ") HP: " + actHP + "/" + fullHP +
+        graphics.drawString(name + " (Level " + Wanderer.LEVEL + ") HP: " + actHP + "/" + fullHP +
                 " | DP: " + dp + " | SP: " + sp, posX, posY);
     }
 
