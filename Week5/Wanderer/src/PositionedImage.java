@@ -8,6 +8,7 @@ public class PositionedImage {
 
     BufferedImage image;
     int posX, posY;
+    private int size = 72;
 
     public PositionedImage() {
 
@@ -33,7 +34,7 @@ public class PositionedImage {
 
     public void draw(Graphics graphics) {
         if (image != null) {
-            graphics.drawImage(image, posX * 72, posY * 72, null);
+            graphics.drawImage(image, posX * size, posY * size, null);
         }
     }
 }

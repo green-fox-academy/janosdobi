@@ -7,8 +7,9 @@ public class Character extends PositionedImage {
     protected int dp;
     protected int sp;
     protected int d6;
-    boolean alive;
+    protected boolean alive;
     private String name;
+    protected boolean isItInBattle;
 
     public Character() {
         d6 = (int) (1 + Math.random() * 6);

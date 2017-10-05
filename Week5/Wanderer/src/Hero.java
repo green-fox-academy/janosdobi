@@ -7,10 +7,10 @@ public class Hero extends Character {
     private int direction;
 
 
-    public Hero(int posX, int posY) {
+    public Hero() {
         super();
-        super.posX = posX * 72;
-        super.posY = posY * 72;
+        super.posX = 0;
+        super.posY = 0;
         direction = 2;
         setImage(direction);
         super.fullHP = 20 + 3 * super.d6;
@@ -22,13 +22,13 @@ public class Hero extends Character {
 
     public void setImage(int direction) {
         try {
-            if (direction == 2) {
+            if (direction == 2 && alive) {
                 super.image = ImageIO.read(new File("images/hero-down.png"));
-            } else if (direction == 0) {
+            } else if (direction == 0 && alive) {
                 super.image = ImageIO.read(new File("images/hero-up.png"));
-            } else if (direction == 1) {
+            } else if (direction == 1 && alive) {
                 super.image = ImageIO.read(new File("images/hero-right.png"));
-            } else if (direction == 3) {
+            } else if (direction == 3 && alive) {
                 super.image = ImageIO.read(new File("images/hero-left.png"));
             }
         } catch (IOException e) {

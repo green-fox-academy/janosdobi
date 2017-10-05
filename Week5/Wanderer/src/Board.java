@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.concurrent.TimeUnit;
 
 public class Board extends JComponent implements KeyListener {
 
@@ -29,11 +28,11 @@ public class Board extends JComponent implements KeyListener {
                 {0, 4}, {1, 4}, {2, 4}, {3, 4}, {6, 4}, {7, 4}, {8, 4}, {1, 5}, {3, 5}, {8, 5}, {1, 6}, {3, 6}, {5, 6}, {6, 6}, {8, 6},
                 {5, 7}, {6, 7}, {8, 7}, {1, 8}, {2, 8}, {3, 8}, {8, 8}, {3, 9}, {5, 9}, {6, 9}, {8, 9}, {1, 10}, {3, 10}, {5, 10}};
 
-        hero = new Hero( 0, 0);
+        hero = new Hero();
 
         enemies = new ListOfEnemies();
         enemies.add(new Boss());
-        while(isItaWall(enemies.get(0).posX, enemies.get(0).posY) || ((hero.posY == enemies.get(0).posY) && (hero.posX == enemies.get(0).posY))) {
+        while (isItaWall(enemies.get(0).posX, enemies.get(0).posY) || ((hero.posY == enemies.get(0).posY) && (hero.posX == enemies.get(0).posY))) {
             enemies.get(0).setCharPos();
         }
         for (int i = 0; i < 3; i++) {
@@ -41,7 +40,7 @@ public class Board extends JComponent implements KeyListener {
         }
         for (int i = 1; i < enemies.size(); i++) {
             enemies.get(i).setName((i == 1) ? "Skeleton " + i + ", the Keyholder!" : "Skeleton " + i);
-            while(isItaWall(enemies.get(i).posX, enemies.get(i).posY) || (isItOccupied(enemies.get(i).posX, enemies.get(i).posY))) {
+            while (isItaWall(enemies.get(i).posX, enemies.get(i).posY) || (isItOccupied(enemies.get(i).posX, enemies.get(i).posY))) {
                 enemies.get(i).setCharPos();
             }
         }
@@ -54,7 +53,7 @@ public class Board extends JComponent implements KeyListener {
         //Drawing floor
         for (int i = 0; i < tilesX; i++) {
             for (int j = 0; j < tilesY; j++) {
-                floor = new Floor (i, j);
+                floor = new Floor(i, j);
                 floor.draw(graphics);
             }
         }
@@ -75,19 +74,11 @@ public class Board extends JComponent implements KeyListener {
 
         //Draw statBox
         hero.drawStats(graphics, 10, 820);
-
-        //Battle
         for (int i = 0; i < enemies.size(); i++) {
-            if (hero.posX == enemies.get(i).posX && hero.posY == enemies.get(i).posY && enemies.get(i).alive) {
+            if (enemies.get(i).isItInBattle) {
                 enemies.get(i).drawStats(graphics, 10, 840);
-                battle(enemies.get(i));
             }
         }
-
-        if (!enemies.get(0).alive) {
-            levelUp = true;
-        }
-
     }
 
     @Override
@@ -117,14 +108,14 @@ public class Board extends JComponent implements KeyListener {
             } else {
                 hero.setImage(2);
             }
-        } else if(e.getKeyCode() == KeyEvent.VK_D) {
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {
             keysPressed++;
             if (hero.posX < tilesX - 1 && !isItaWall((hero.posX + 1), hero.posY)) {
                 hero.moveChar(1);
             } else {
                 hero.setImage(1);
             }
-        } else if(e.getKeyCode() == KeyEvent.VK_A) {
+        } else if (e.getKeyCode() == KeyEvent.VK_A) {
             keysPressed++;
             if (hero.posX > 0 && !isItaWall((hero.posX - 1), hero.posY)) {
                 hero.moveChar(3);
@@ -132,6 +123,16 @@ public class Board extends JComponent implements KeyListener {
                 hero.setImage(3);
             }
         }
+
+        //Battle
+
+        for (int i = 0; i < enemies.size(); i++) {
+            if (hero.posX == enemies.get(i).posX && hero.posY == enemies.get(i).posY && enemies.get(i).alive && e.getKeyCode() == KeyEvent.VK_SPACE) {
+                battle(enemies.get(i));
+            }
+        }
+
+        //Next level
 
         //Move enemies
         if (keysPressed % 2 == 0) {
@@ -173,21 +174,21 @@ public class Board extends JComponent implements KeyListener {
     }
 
     public boolean isItOccupied(int posX, int posY) {
-        if((posX == hero.posX && posY == hero.posY) || (posX == enemies.get(0).posX && posY == enemies.get(0).posY)) {
+        if ((posX == hero.posX && posY == hero.posY) || (posX == enemies.get(0).posX && posY == enemies.get(0).posY)) {
             return true;
         }
         return false;
     }
 
     public void battle(Character character) {
-        while (character.actHP > 0 && hero.actHP > 0) {
-            hero.strike(character);
-            character.strike(hero);
-        }
-        if (character.actHP <= 0) {
-            character.die();
-        } else if (hero.actHP <= 0) {
+        character.isItInBattle = true;
+        hero.strike(character);
+        character.strike(hero);
+        if (hero.actHP <= 0) {
             hero.die();
+        } else if (character.actHP <= 0) {
+            character.die();
+            character.isItInBattle = false;
         }
     }
 }
