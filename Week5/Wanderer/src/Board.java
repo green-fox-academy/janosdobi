@@ -7,32 +7,27 @@ public class Board extends JComponent implements KeyListener {
 
     private int tilesX;
     private int tilesY;
-    private int[][] wallPos;
     private int keysPressed;
+    Map map;
     Hero hero;
     Wall wall;
     Floor floor;
     ListOfEnemies enemies;
-    protected int level;
-    protected boolean levelUp;
+
 
     public Board(int level) {
         // set the size of your draw board
         setPreferredSize(new Dimension(720, 870));
         setVisible(true);
         keysPressed = 0;
-        this.level = level;
         tilesX = 10;
         tilesY = 11;
-        wallPos = new int[][]{{3, 0}, {3, 1}, {3, 2}, {2, 2}, {1, 2}, {5, 0}, {5, 1}, {5, 2}, {5, 3}, {5, 4}, {7, 1}, {8, 1}, {7, 2}, {8, 2},
-                {0, 4}, {1, 4}, {2, 4}, {3, 4}, {6, 4}, {7, 4}, {8, 4}, {1, 5}, {3, 5}, {8, 5}, {1, 6}, {3, 6}, {5, 6}, {6, 6}, {8, 6},
-                {5, 7}, {6, 7}, {8, 7}, {1, 8}, {2, 8}, {3, 8}, {8, 8}, {3, 9}, {5, 9}, {6, 9}, {8, 9}, {1, 10}, {3, 10}, {5, 10}};
-
+        map = new Map();
         hero = new Hero();
 
         enemies = new ListOfEnemies();
         enemies.add(new Boss());
-        while (isItaWall(enemies.get(0).posX, enemies.get(0).posY) || ((hero.posY == enemies.get(0).posY) && (hero.posX == enemies.get(0).posY))) {
+        while (map.isItaWall(enemies.get(0).posX, enemies.get(0).posY) || ((hero.posY == enemies.get(0).posY) && (hero.posX == enemies.get(0).posY))) {
             enemies.get(0).setCharPos();
         }
         for (int i = 0; i < 3; i++) {
@@ -40,7 +35,7 @@ public class Board extends JComponent implements KeyListener {
         }
         for (int i = 1; i < enemies.size(); i++) {
             enemies.get(i).setName((i == 1) ? "Skeleton " + i + ", the Keyholder!" : "Skeleton " + i);
-            while (isItaWall(enemies.get(i).posX, enemies.get(i).posY) || (isItOccupied(enemies.get(i).posX, enemies.get(i).posY))) {
+            while (map.isItaWall(enemies.get(i).posX, enemies.get(i).posY) || (isItOccupied(enemies.get(i).posX, enemies.get(i).posY))) {
                 enemies.get(i).setCharPos();
             }
         }
@@ -59,8 +54,8 @@ public class Board extends JComponent implements KeyListener {
         }
 
         //Drawing walls
-        for (int i = 0; i < wallPos.length; i++) {
-            wall = new Wall(wallPos[i][0], wallPos[i][1]);
+        for (int i = 0; i < map.walls.length; i++) {
+            wall = new Wall(map.walls[i][0], map.walls[i][1]);
             wall.draw(graphics);
         }
 
@@ -96,28 +91,28 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
             keysPressed++;
-            if (hero.posY > 0 && !isItaWall(hero.posX, (hero.posY - 1))) {
+            if (hero.posY > 0 && !map.isItaWall(hero.posX, (hero.posY - 1))) {
                 hero.moveChar(0);
             } else {
                 hero.setImage(0);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
             keysPressed++;
-            if (hero.posY < tilesY - 1 && !isItaWall(hero.posX, (hero.posY + 1))) {
+            if (hero.posY < tilesY - 1 && !map.isItaWall(hero.posX, (hero.posY + 1))) {
                 hero.moveChar(2);
             } else {
                 hero.setImage(2);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
             keysPressed++;
-            if (hero.posX < tilesX - 1 && !isItaWall((hero.posX + 1), hero.posY)) {
+            if (hero.posX < tilesX - 1 && !map.isItaWall((hero.posX + 1), hero.posY)) {
                 hero.moveChar(1);
             } else {
                 hero.setImage(1);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
             keysPressed++;
-            if (hero.posX > 0 && !isItaWall((hero.posX - 1), hero.posY)) {
+            if (hero.posX > 0 && !map.isItaWall((hero.posX - 1), hero.posY)) {
                 hero.moveChar(3);
             } else {
                 hero.setImage(3);
@@ -139,22 +134,22 @@ public class Board extends JComponent implements KeyListener {
             for (int i = 0; i < enemies.size(); i++) {
                 int temp = (int) (Math.random() * 3);
                 if (temp == 0) {
-                    if (enemies.get(i).posY > 0 && !isItaWall(enemies.get(i).posX, (enemies.get(i).posY - 1))) {
+                    if (enemies.get(i).posY > 0 && !map.isItaWall(enemies.get(i).posX, (enemies.get(i).posY - 1))) {
                         enemies.get(i).moveChar(temp);
                     }
                 }
                 if (temp == 1) {
-                    if (enemies.get(i).posX < tilesX - 1 && !isItaWall((enemies.get(i).posX + 1), enemies.get(i).posY)) {
+                    if (enemies.get(i).posX < tilesX - 1 && !map.isItaWall((enemies.get(i).posX + 1), enemies.get(i).posY)) {
                         enemies.get(i).moveChar(temp);
                     }
                 }
                 if (temp == 2) {
-                    if (enemies.get(i).posY < tilesY - 1 && !isItaWall(enemies.get(i).posX, (enemies.get(i).posY + 1))) {
+                    if (enemies.get(i).posY < tilesY - 1 && !map.isItaWall(enemies.get(i).posX, (enemies.get(i).posY + 1))) {
                         enemies.get(i).moveChar(temp);
                     }
                 }
                 if (temp == 3) {
-                    if (enemies.get(i).posX > 0 && !isItaWall((enemies.get(i).posX - 1), enemies.get(i).posY)) {
+                    if (enemies.get(i).posX > 0 && !map.isItaWall((enemies.get(i).posX - 1), enemies.get(i).posY)) {
                         enemies.get(i).moveChar(temp);
                     }
                 }
@@ -162,15 +157,6 @@ public class Board extends JComponent implements KeyListener {
         }
         // and redraw to have a new picture with the new coordinates
         repaint();
-    }
-
-    public boolean isItaWall(int posX, int posY) {
-        for (int i = 0; i < wallPos.length; i++) {
-            if (wallPos[i][0] == posX && wallPos[i][1] == posY) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public boolean isItOccupied(int posX, int posY) {
