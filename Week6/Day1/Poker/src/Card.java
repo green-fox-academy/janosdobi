@@ -4,31 +4,28 @@ import java.util.List;
 
 public class Card {
 
-    protected List<String> colors;
-    protected List<String> values;
-    protected StringBuilder name;
-
-    public Card() {
-        colors = new ArrayList<>(Arrays.asList("C", "D", "H", "S"));
-        values = new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"));
-        createCard();
-    }
+    private String suit;
+    private String value;
+    private List<String> suits;
+    private List<String> values;
 
     public Card(String name){
-        colors = new ArrayList<>(Arrays.asList("C", "D", "H", "S"));
+        suits = new ArrayList<>(Arrays.asList("C", "D", "H", "S"));
         values = new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"));
-        this.name = new StringBuilder();
-        this.name.append(name);
+        this.value = name.substring(0, 1);
+        this.suit = name.substring(1);
     }
 
-    public void createCard() {
-        name = new StringBuilder();
-        name.append(values.get((int) (Math.random() * 12)));
-        name.append(colors.get((int) (Math.random() * 3)));
+    public int getValue() {
+        return values.indexOf(this.value);
+    }
+
+    public int getSuitValue() {
+        return suits.indexOf(this.suit);
     }
 
     @Override
     public String toString() {
-        return name.toString();
+        return this.value + this.suit;
     }
 }
