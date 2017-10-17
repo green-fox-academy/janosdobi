@@ -11,7 +11,7 @@ public class TodoList {
     private Path myPath;
 
     public TodoList() {
-        myPath = Paths.get("C:/Users/PC-DJ/Documents/GreenFox/TodoApp/src/Data.txt");
+        myPath = Paths.get("C:/Users/PC-DJ/Documents/GreenFox/janosdobi/Break/TodoApp/src/Data.txt");
         readFile();
     }
 

@@ -23,6 +23,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return id + " - " + (completed == false ? "[ ] " : "[x] ") + name;
+        return id + " - " + (!completed ? "[ ] " : "[x] ") + name;
     }
 }
