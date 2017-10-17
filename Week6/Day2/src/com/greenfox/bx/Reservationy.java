@@ -1,4 +1,4 @@
-package main.java.reservations;
+package com.greenfox.bx;
 
 public interface Reservationy {
 

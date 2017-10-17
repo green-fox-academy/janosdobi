@@ -1,4 +1,4 @@
-package main.java.reservations;
+package com.greenfox.bx;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ package com.greenfox.bx;
 public class CreditCard implements CreditCardy {
 
     private StringBuilder codeAccount;
-    private String name;
+    protected String name;
     
     public CreditCard(int i) {
         this.name = String.format("ABC%d", i);
@@ -36,13 +36,13 @@ public class CreditCard implements CreditCardy {
     public int cumeSumCVV(String codeAccount) {
         int i = 0;
         for (int j = 0; j < this.codeAccount.length() - 1; j++) {
-            i += this.codeAccount.charAt(j);
+            i += Integer.parseInt(this.codeAccount.charAt(j) + "");
         }
         return i;
     }
 
     @Override
     public String toString() {
-        return String.format("Name=%s CC#=%s CVV=%d", getNameCardholder(), getCodeAccount(), getSumCVV());
+        return String.format("Name=%s CC#=%s CVV=%d (validated)", getNameCardholder(), getCodeAccount(), getSumCVV());
     }
 }
