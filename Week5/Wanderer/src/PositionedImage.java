@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class PositionedImage {
+public class PositionedImage implements Drawable {
 
     BufferedImage image;
     int posX, posY;

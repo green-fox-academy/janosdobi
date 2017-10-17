@@ -10,6 +10,11 @@ public class Dominoes {
         // eg: [2, 4], [4, 3], [3, 5] ...
 
         System.out.println(dominoes);
+
+        for(Domino d : dominoes) {
+            d.printAllFields();
+        }
+
     }
 
     static List<Domino> initializeDominoes() {

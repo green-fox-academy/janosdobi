@@ -1,4 +1,4 @@
-public class Domino implements Comparable<Domino> {
+public class Domino implements Comparable<Domino>, Printable {
     private final int[] values;
 
     public Domino(int valueA, int valueB) {
@@ -23,5 +23,10 @@ public class Domino implements Comparable<Domino> {
         } else {
             return - 1;
         }
+    }
+
+    @Override
+    public void printAllFields() {
+        System.out.println(values);
     }
 }

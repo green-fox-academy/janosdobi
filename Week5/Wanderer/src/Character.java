@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Character extends PositionedImage {
+public class Character extends PositionedImage implements Moveable {
 
     protected int fullHP;
     protected int actHP;
