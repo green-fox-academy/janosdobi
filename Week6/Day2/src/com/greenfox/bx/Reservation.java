@@ -2,6 +2,10 @@ package com.greenfox.bx;
 
 public class Reservation implements Reservationy {
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_RED = "\u001B[31m";
+
     private String code;
     private String dow;
     private String[] dows;
@@ -37,6 +41,6 @@ public class Reservation implements Reservationy {
 
     @Override
     public String toString() {
-        return String.format("BOOKING# %s for %s", code, dow);
+        return String.format("BOOKING#" + ANSI_BLUE + " %s" + ANSI_RED + " for " + ANSI_BLUE + "%s" + ANSI_RESET, code, dow);
     }
 }
