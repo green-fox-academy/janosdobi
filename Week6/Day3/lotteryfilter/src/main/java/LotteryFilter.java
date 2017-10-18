@@ -64,6 +64,17 @@ public class LotteryFilter {
         }
     }
 
+    public void writeFile(String output, int year) {
+        contentFilterer(year);
+        try {
+            CSVWriter writer = new CSVWriter(new FileWriter(String.format("C:/Users/PC-DJ/Documents/GreenFox/janosdobi/Week6/Day3/lotteryfilter/src/main/resources/%s", output)), ';', CSVWriter.NO_QUOTE_CHARACTER);
+            writer.writeAll(filteredContent);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void contentFilterer(int year) {
         filteredContent = new ArrayList<>();
         for (int i = 0; i < fileContent.size(); i++) {
