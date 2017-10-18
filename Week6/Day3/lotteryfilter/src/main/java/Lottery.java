@@ -16,11 +16,13 @@ public class Lottery {
         }
 
         if (options.has("f")) {
-
+            lottery.readFile(options.valueOf("f").toString());
+            lottery.writeFile();
         }
 
         if (options.has("o")) {
-
+            lottery.readFile();
+            lottery.writeFile(options.valueOf("o").toString());
         }
     }
 }
