@@ -21,7 +21,7 @@ public class BirthdayCalculatorWithLocalDate implements BirthdayCalculator<Local
 
   @Override
   public boolean isAnniversaryToday(LocalDate date) throws NullPointerException {
-      return LocalDate.now() == date ? true : false;
+      return date.equals(LocalDate.now()) ? true : false;
     // TODO - return with true if today is the same month+day as date
   }
 
