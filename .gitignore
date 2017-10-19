@@ -17,3 +17,6 @@
 gradle-app.setting
 !gradle-wrapper.jar
 .gradletasknamecache
+/gradle/
+gradle.bat
+gradle
