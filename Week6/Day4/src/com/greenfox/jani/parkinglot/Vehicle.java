@@ -1,8 +1,6 @@
 package com.greenfox.jani.parkinglot;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Vehicle {
 
@@ -12,6 +10,7 @@ public class Vehicle {
         for (int i = 0; i < 256; i++) {
             vehicles.add(new Car());
         }
+
         HashMap<Color, Integer> colorMap = new HashMap<>();
         for (int i = 0; i < vehicles.size(); i++) {
             if (!colorMap.containsKey(vehicles.get(i).getColor())) {
@@ -23,6 +22,8 @@ public class Vehicle {
         for (Color name: colorMap.keySet()){
             System.out.println(name + " " + colorMap.get(name));
         }
+
+        System.out.println();
 
         HashMap<Type, Integer> typeMap = new HashMap<>();
         for (int i = 0; i < vehicles.size(); i++) {
@@ -36,7 +37,6 @@ public class Vehicle {
             System.out.println(name + " " + typeMap.get(name));
         }
 
-
         HashMap<String, Integer> carMap = new HashMap<>();
         for (int i = 0; i < vehicles.size(); i++) {
             if (!carMap.containsKey(vehicles.get(i).getColor().toString() + " " + (vehicles.get(i).getType()))) {
@@ -45,8 +45,17 @@ public class Vehicle {
                 carMap.put(vehicles.get(i).getColor().toString() + " " + (vehicles.get(i).getType()), carMap.get(vehicles.get(i).getColor().toString() + " " + (vehicles.get(i).getType())) + 1);
             }
         }
-        for (String name: carMap.keySet()){
-            System.out.println(name + " " + carMap.get(name));
+        Integer[] array = new Integer[vehicles.size()];
+        for (int i = 0; i < vehicles.size(); i++) {
+            array[i] = carMap.get(vehicles.get(i).getColor().toString() + " " + (vehicles.get(i).getType()));
         }
+        Arrays.sort(array);
+        String output = "";
+        for (Map.Entry<String, Integer> entry : carMap.entrySet()) {
+            if (entry.getValue().equals(array[vehicles.size() - 1])) {
+                output = entry.getKey();
+            }
+        }
+        System.out.println(output);
     }
 }
