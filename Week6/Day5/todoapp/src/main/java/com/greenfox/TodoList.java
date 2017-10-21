@@ -1,6 +1,7 @@
 package com.greenfox;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.ArrayList ;
 import java.util.List;
 
 public class TodoList {
@@ -10,29 +11,35 @@ public class TodoList {
 
     public TodoList() {
         myOperations = new FileManipulation();
-        myOperations.load();
-        uploadTasksList();
+        myOperations.loadFromFile();
+        loadTasksList();
     }
 
-    public void addTask(String name) {
-        taskList.add(new Task(name));
-        setNewTaskId();
-        myOperations.getLinesOfFile().add(new String[] {taskList.get(taskList.size() - 1).getCompleted() ? "&&" : "", taskList.get(taskList.size() - 1).getName(), String.valueOf(taskList.get(taskList.size() - 1).getId())}); //to be replaced
-        myOperations.save();
-    }
-
-    private void setNewTaskId () {
-        taskList.get(taskList.size() - 1).setId(taskList.size());
+    private void loadTasksList() {
+        taskList = new ArrayList<>();
+        for (int i = 0; i < myOperations.getLinesOfFile().size(); i++) {
+            taskList.add(new Task(myOperations.getLinesOfFile().get(i)[2], i + 1, LocalDateTime.parse(myOperations.getLinesOfFile().get(i)[0])));
+            taskList.get(i).setCompletedAt(LocalDateTime.parse(myOperations.getLinesOfFile().get(i)[1]));
+        }
+        myOperations.getLinesOfFile().clear();
     }
 
     public void listTasks() {
-        if (taskList.size() != 0) {
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(taskList.get(i));
+        if (taskList.size() > 0) {
+            for (Task t : taskList) {
+                System.out.println(t);
             }
-        } else {
-            System.out.println("No todos for today! :)");
         }
+    }
+
+    public void addTask(String name) {
+        taskList.add(new Task(name, setNewTaskId(), LocalDateTime.now()));
+        loadLinesOfFile();
+        myOperations.saveToFile();
+    }
+
+    private int setNewTaskId() {
+        return taskList.size() + 1;
     }
 
     public void removeTask(int taskID) {
@@ -42,47 +49,32 @@ public class TodoList {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Unable to remove: index is out of bound");
             }
-            myOperations.getLinesOfFile().remove(taskID - 1); // to be replaced
-            myOperations.save();
+            loadLinesOfFile();
+            myOperations.saveToFile();
         }
     }
 
     public void completeTask(int taskID) {
         if (taskList.size() > 2) {
             try {
-                taskList.get(taskID - 1).setCompleted();
+                taskList.get(taskID - 1).setCompletedAt(LocalDateTime.now());
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Unable to check: index is out of bound");
             }
-            myOperations.getLinesOfFile().set(taskID - 1, new String[] {taskList.get(taskID - 1).getCompleted() ? "&&" : "", taskList.get(taskID - 1).getName(), String.valueOf(taskList.get(taskID - 1).getId())});
-            myOperations.save();
+            loadLinesOfFile();
+            myOperations.saveToFile();
         }
     }
 
     public void updateTask(int taskID, String name) {
         taskList.get(taskID - 1).setName(name);
+        loadLinesOfFile();
+        myOperations.saveToFile();
+    }
+
+    private void loadLinesOfFile() {
         for (int i = 0; i < taskList.size(); i++) {
-            myOperations.getLinesOfFile().set(taskID - 1, new String[] {taskList.get(taskID - 1).getCompleted() ? "&&" : "", taskList.get(taskID - 1).getName(), String.valueOf(taskList.get(taskID - 1).getId())});
-            myOperations.save();
+            myOperations.setLineOfFile(taskList.get(i).getCreatedAt(), taskList.get(i).getCompletedAt(), taskList.get(i).getName(), taskList.get(i).getId());
         }
-    }
-
-    private void uploadTasksList() {
-        taskList = new ArrayList<>();
-        for (int i = 0; i < myOperations.getLinesOfFile().size(); i++) {
-            taskList.add(new Task((myOperations.getLinesOfFile().get(i)[1])));
-            setTaskStatusWhenLoading(myOperations.getLinesOfFile(), i);
-            setTaskIdWhenLoading(myOperations.getLinesOfFile(), i);
-        }
-    }
-
-    private void setTaskStatusWhenLoading(List<String[]> linesOfFile, int i) {
-        if (linesOfFile.get(i)[0].equals("&&")) {
-            taskList.get(i).setCompleted();
-        }
-    }
-
-    private void setTaskIdWhenLoading(List<String[]> linesOfFile, int i) {
-        taskList.get(i).setId(Integer.parseInt(linesOfFile.get(i)[2]));
     }
 }
