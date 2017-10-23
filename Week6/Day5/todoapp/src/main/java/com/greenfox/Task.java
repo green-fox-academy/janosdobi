@@ -9,6 +9,10 @@ public class Task {
     private LocalDateTime createdAt;
     private LocalDateTime completedAt;
 
+    public Task(){
+
+    }
+
     public Task(String name, int id, LocalDateTime d) {
         this.name = name;
         this.id = id;

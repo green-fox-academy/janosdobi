@@ -4,24 +4,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList ;
 import java.util.List;
 
-public class TodoList {
+public class TodoList extends FileManipulation implements Persistance {
 
     private List<Task> taskList;
-    private FileManipulation myOperations;
 
     public TodoList() {
-        myOperations = new FileManipulation();
-        myOperations.loadFromFile();
+        loadFromFile();
         loadTasksList();
     }
 
     private void loadTasksList() {
         taskList = new ArrayList<>();
-        for (int i = 0; i < myOperations.getLinesOfFile().size(); i++) {
-            taskList.add(new Task(myOperations.getLinesOfFile().get(i)[2], i + 1, LocalDateTime.parse(myOperations.getLinesOfFile().get(i)[0])));
-            taskList.get(i).setCompletedAt(LocalDateTime.parse(myOperations.getLinesOfFile().get(i)[1]));
+        for (int i = 0; i < getLinesOfFile().size(); i++) {
+            taskList.add(new Task(getLinesOfFile().get(i)[2], i + 1, LocalDateTime.parse(getLinesOfFile().get(i)[0])));
+            taskList.get(i).setCompletedAt(LocalDateTime.parse(getLinesOfFile().get(i)[1]));
         }
-        myOperations.getLinesOfFile().clear();
+        getLinesOfFile().clear();
     }
 
     public void listTasks() {
@@ -35,7 +33,7 @@ public class TodoList {
     public void addTask(String name) {
         taskList.add(new Task(name, setNewTaskId(), LocalDateTime.now()));
         loadLinesOfFile();
-        myOperations.saveToFile();
+        saveToFile();
     }
 
     private int setNewTaskId() {
@@ -50,7 +48,7 @@ public class TodoList {
                 System.out.println("Unable to remove: index is out of bound");
             }
             loadLinesOfFile();
-            myOperations.saveToFile();
+            saveToFile();
         }
     }
 
@@ -62,19 +60,58 @@ public class TodoList {
                 System.out.println("Unable to check: index is out of bound");
             }
             loadLinesOfFile();
-            myOperations.saveToFile();
+            saveToFile();
         }
     }
 
     public void updateTask(int taskID, String name) {
         taskList.get(taskID - 1).setName(name);
         loadLinesOfFile();
-        myOperations.saveToFile();
+        saveToFile();
     }
 
     private void loadLinesOfFile() {
-        for (int i = 0; i < taskList.size(); i++) {
-            myOperations.setLineOfFile(taskList.get(i).getCreatedAt(), taskList.get(i).getCompletedAt(), taskList.get(i).getName(), taskList.get(i).getId());
+        for (Task aTaskList : taskList) {
+            setLineOfFile(aTaskList.getCreatedAt(), aTaskList.getCompletedAt(), aTaskList.getName(), aTaskList.getId());
         }
+    }
+
+    //interface implementation....
+
+    @Override
+    public void save(Task todo) {
+        taskList.add(todo);
+    }
+
+    @Override
+    public void saveAll(List<Task> todoList) {
+        this.taskList.addAll(todoList);
+    }
+
+    @Override
+    public Task load(int id) {
+        Task task = new Task();
+        for (Task t : taskList) {
+            if(t.getId() == id) {
+                task = t;
+            }
+        }
+        return task;
+    }
+
+    @Override
+    public Task load(String name) {
+        Task task = new Task();
+        for (Task t : taskList) {
+            if(t.getName().equals(name)) {
+                task = t;
+            }
+        }
+        return task;
+    }
+
+    @Override
+    public List<Task> loadAll() {
+        return taskList;
     }
 }
