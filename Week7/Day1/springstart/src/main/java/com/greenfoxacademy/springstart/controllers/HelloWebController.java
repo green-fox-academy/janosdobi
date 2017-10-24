@@ -17,14 +17,21 @@ public class HelloWebController {
             "Salve", "Ciao", "Kon-nichiwa", "An-nyong Ha-se-yo", "Salvëte", "Ni hao", "Dzien' dobry", "Olá", "Bunã ziua", "Zdravstvuyte", "Hola", "Jambo", "Hujambo", "Hej",
             "Sa-wat-dee", "Merhaba", "Selam", "Vitayu", "Xin chào", "Hylo", "Sut Mae", "Sholem Aleychem", "Sawubona"};
 
+    public String getColour() {
+        return String.format("color:rgb(%d,%d,%d)", (int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));
+    }
+
+    public String getSize() {
+        return String.format("font-size:%dpx", (int) (12 + Math.random() * 60));
+    }
+
     @RequestMapping("/web/greeting")
     public String greeting(@RequestParam(value = "name") String name, Model model) {
         model.addAttribute("name", name);
         id.incrementAndGet();
         model.addAttribute("id", id);
         model.addAttribute("hello", String.format("%s", hellos[(int) (Math.random() * 45)]));
-        model.addAttribute("size", (int) (12 + Math.random() * 45));
-        model.addAttribute("color", (int) (Math.random() * 255));
+        model.addAttribute("style", getColour() + ";" + getSize());
         return "greeting";
     }
 }
