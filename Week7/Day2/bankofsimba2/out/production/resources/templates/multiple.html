@@ -7,7 +7,7 @@
     </head>
     <body>
         <table>
-            <tr th:each="account : ${accounts}">
+            <tr th:style="${account.king} ? 'color:red' : 'color:black'" th:each="account : ${accounts}">
                 <td th:text="${accountStat.count}"/>
                 <td th:text="${account.name}"/>
                 <td th:text="${account.balance}"/>

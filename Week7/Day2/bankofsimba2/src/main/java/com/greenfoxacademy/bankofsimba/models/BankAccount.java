@@ -5,18 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
+@Getter
+@Setter
 public class BankAccount {
 
-    @Getter
-    @Setter
     private String name;
     private double balance;
-    @Getter
-    @Setter
     private String animalType;
+    private boolean isKing;
 
     public String getBalance() {
         return String.format("%.2f Zebra", balance);
     }
-
 }
