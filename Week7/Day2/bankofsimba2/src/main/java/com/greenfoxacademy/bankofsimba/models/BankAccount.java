@@ -12,7 +12,7 @@ public class BankAccount {
     private String name;
     @Getter
     @Setter
-    private int balance;
+    private double balance;
     @Getter
     @Setter
     private String animalType;
