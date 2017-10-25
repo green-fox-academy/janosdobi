@@ -18,7 +18,7 @@ public class BankWebController {
 
     @RequestMapping(value="/exercise1")
     public String bankAccount(Model model) {
-        model.addAttribute("account", new BankAccount("Simba", 2000.00, "lion", false));
+        model.addAttribute("account", new BankAccount("Simba", 2000.00, "lion", false, false));
         return "exercise1";
     }
 
@@ -40,9 +40,12 @@ public class BankWebController {
     public List<BankAccount> getAccounts() {
         List<BankAccount> accounts = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            accounts.add(new BankAccount(names.get(i), money.get(i), types.get(i), false));
+            accounts.add(new BankAccount(names.get(i), money.get(i), types.get(i), false, false));
             if (accounts.get(i).getName().equals("Mufasa")) {
                 accounts.get(i).setKing(true);
+            }
+            if (i % 2 == 0) {
+                accounts.get(i).setBadGuy(true);
             }
         }
         return accounts;

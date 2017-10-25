@@ -13,6 +13,7 @@ public class BankAccount {
     private double balance;
     private String animalType;
     private boolean isKing;
+    private boolean isBadGuy;
 
     public String getBalance() {
         return String.format("%.2f Zebra", balance);

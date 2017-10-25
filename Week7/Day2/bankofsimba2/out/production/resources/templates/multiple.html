@@ -12,6 +12,7 @@
                 <td th:text="${account.name}"/>
                 <td th:text="${account.balance}"/>
                 <td th:text="${account.animalType}"/>
+                <td th:text="${account.badGuy} ? 'Bad Guy' : 'Good Guy'"/>
             </tr>
         </table>
     </body>
