@@ -10,11 +10,13 @@ public class BankAccount {
     @Getter
     @Setter
     private String name;
-    @Getter
-    @Setter
     private double balance;
     @Getter
     @Setter
     private String animalType;
+
+    public String getBalance() {
+        return String.format("%.2f Zebra", balance);
+    }
 
 }

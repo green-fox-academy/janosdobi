@@ -13,12 +13,12 @@ import java.util.List;
 public class BankWebController {
 
     List<String> names = Arrays.asList("Scar", "Timon", "Pumba", "Rafiki", "Mufasa");
-    List<Integer> money = Arrays.asList(1000, 0, 0, 5000, 10000);
+    List<Double> money = Arrays.asList(1000.00, 0.00, 0.00, 5000.00, 10000.00);
     List<String> types = Arrays.asList("lion", "rat", "pig", "monkey", "lion");
 
     @RequestMapping(value="/exercise1")
     public String bankAccount(Model model) {
-        model.addAttribute("account", new BankAccount("Simba", 2000, "lion"));
+        model.addAttribute("account", new BankAccount("Simba", 2000.00, "lion"));
         return "exercise1";
     }
 
