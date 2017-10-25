@@ -8,11 +8,11 @@
     <body>
         <table>
             <tr th:style="${account.king} ? 'color:red' : 'color:black'" th:each="account : ${accounts}">
-                <td th:text="${accountStat.count}"/>
-                <td th:text="${account.name}"/>
-                <td th:text="${account.balance}"/>
-                <td th:text="${account.animalType}"/>
-                <td th:text="${account.badGuy} ? 'Bad Guy' : 'Good Guy'"/>
+                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${accountStat.count}"/>
+                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.name}"/>
+                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.balance}"/>
+                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.animalType}"/>
+                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.badGuy} ? 'Bad Guy' : 'Good Guy'"/>
             </tr>
         </table>
     </body>

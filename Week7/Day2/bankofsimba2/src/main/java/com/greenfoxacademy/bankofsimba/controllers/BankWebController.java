@@ -33,7 +33,6 @@ public class BankWebController {
     @RequestMapping(value="/multiple")
     public String multiple(Model model) {
         model.addAttribute("accounts", getAccounts());
-        model.addAttribute("feri", "Ferike");
         return "multiple";
     }
 
