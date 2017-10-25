@@ -3,6 +3,9 @@ package com.greenfoxacademy.bankofsimba.controllers;
 import com.greenfoxacademy.bankofsimba.models.BankAccount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -30,11 +33,18 @@ public class BankWebController {
         return "HTMLCeption";
     }
 
-    @RequestMapping(value="/multiple")
+    @GetMapping(value="/multiple")
     public String multiple(Model model) {
         model.addAttribute("accounts", getAccounts());
         return "multiple";
     }
+
+    @PostMapping("/multiple")
+    public String balanceRaise(Model model) {
+        model.addAttribute("accounts", getAccounts());
+        return "result";
+    }
+
 
     public List<BankAccount> getAccounts() {
         List<BankAccount> accounts = new ArrayList<>();

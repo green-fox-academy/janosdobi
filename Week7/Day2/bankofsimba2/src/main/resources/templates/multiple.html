@@ -1,19 +1,30 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
+
     <head>
-    <title>Thymeleaf Exercise #</title>
-    <link rel="stylesheet" th:href="@{/style.css}" />
-        <meta charset="utf-8" />
+
+        <title>Thymeleaf Exercise #</title>
+        <link rel="stylesheet" th:href="@{/style.css}" />
+            <meta charset="utf-8" />
     </head>
+
     <body>
+
         <table>
             <tr th:style="${account.king} ? 'color:red' : 'color:black'" th:each="account : ${accounts}">
                 <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${accountStat.count}"/>
                 <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.name}"/>
-                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.balance}"/>
+                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.getBalanceInString()}"/>
                 <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.animalType}"/>
                 <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.badGuy} ? 'Bad Guy' : 'Good Guy'"/>
             </tr>
         </table>
+
+        <form action="#" th:action="@{/multiple}" th:each="acc : ${accounts}" th:object="${acc}" method="post">
+            <button style="margin: 5px" type="submit" th:formaction="${acc.raiseTheBalance()}" th:text="'Raise the balance for ' + ${acc.name}"></button>
+        </form>
+
     </body>
+
 </html>
