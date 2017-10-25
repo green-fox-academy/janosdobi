@@ -5,16 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 public class BankWebController {
 
-    BankAccount bankAccount = new BankAccount("Simba", 2000, "lion");
+    List<String> names = Arrays.asList("Scar", "Timon", "Pumba", "Rafiki", "Mufasa");
+    List<Integer> money = Arrays.asList(1000, 0, 0, 5000, 10000);
+    List<String> types = Arrays.asList("lion", "rat", "pig", "monkey", "lion");
 
     @RequestMapping(value="/exercise1")
     public String bankAccount(Model model) {
-        model.addAttribute("name", bankAccount.getName());
-        model.addAttribute("balance", String.format("%.2f Zebra", (double) bankAccount.getBalance()));
-        model.addAttribute("animalType", bankAccount.getAnimalType());
+        model.addAttribute("account", new BankAccount("Simba", 2000, "lion"));
         return "exercise1";
     }
 
@@ -24,5 +28,20 @@ public class BankWebController {
     public String htmlCeption(Model model) {
             model.addAttribute("text", myText);
         return "HTMLCeption";
+    }
+
+    @RequestMapping(value="/multiple")
+    public String multiple(Model model) {
+        model.addAttribute("accounts", getAccounts());
+        model.addAttribute("feri", "Ferike");
+        return "multiple";
+    }
+
+    public List<BankAccount> getAccounts() {
+        List<BankAccount> accounts = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            accounts.add(new BankAccount(names.get(i), money.get(i), types.get(i)));
+        }
+        return accounts;
     }
 }
