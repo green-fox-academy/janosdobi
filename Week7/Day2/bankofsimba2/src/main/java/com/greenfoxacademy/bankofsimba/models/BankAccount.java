@@ -28,6 +28,10 @@ public class BankAccount {
     }
 
     public void raiseTheBalance() {
-        setBalance(getBalance() + 100.0);
+        if (!this.isKing) {
+            setBalance(getBalance() + 10.0);
+        } else {
+            setBalance(getBalance() + 100.0);
+        }
     }
 }

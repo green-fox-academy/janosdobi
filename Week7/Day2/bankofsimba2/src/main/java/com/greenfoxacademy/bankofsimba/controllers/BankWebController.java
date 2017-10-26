@@ -19,6 +19,8 @@ public class BankWebController {
     List<Double> money = Arrays.asList(1000.00, 0.00, 0.00, 5000.00, 10000.00);
     List<String> types = Arrays.asList("lion", "rat", "pig", "monkey", "lion");
 
+    List<BankAccount> myAccounts = getAccounts();
+
     @RequestMapping(value="/exercise1")
     public String bankAccount(Model model) {
         model.addAttribute("account", new BankAccount("Simba", 2000.00, "lion", false, false));
@@ -35,14 +37,17 @@ public class BankWebController {
 
     @GetMapping(value="/multiple")
     public String multiple(Model model) {
-        model.addAttribute("accounts", getAccounts());
+        model.addAttribute("accounts", myAccounts);
         return "multiple";
     }
 
     @PostMapping("/multiple")
     public String balanceRaise(Model model) {
-        model.addAttribute("accounts", getAccounts());
-        return "result";
+        model.addAttribute("accounts", myAccounts);
+        for (int i = 0; i < myAccounts.size(); i++) {
+            myAccounts.get(i).raiseTheBalance();
+        }
+        return "multiple";
     }
 
 

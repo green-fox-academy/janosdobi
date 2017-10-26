@@ -22,7 +22,7 @@
         </table>
 
         <form action="#" th:action="@{/multiple}" th:each="acc : ${accounts}" th:object="${acc}" method="post">
-            <button style="margin: 5px" type="submit" th:formaction="${acc.raiseTheBalance()}" th:text="'Raise the balance for ' + ${acc.name}"></button>
+            <button style="margin: 5px" type="submit" th:text="'Raise the balance for ' + ${acc.name}"></button>
         </form>
 
     </body>
