@@ -35,12 +35,12 @@ public class Fox {
         return tricks;
     }
 
-    public void setFood(String s) {
-        this.food.setName(s);
+    public void setDrink(Drink drink) {
+        this.drink = drink;
     }
 
-    public void setDrink(String s) {
-        this.drink.setName(s);
+    public void setFood(Food food) {
+        this.food = food;
     }
 
     public void setName(String name) {

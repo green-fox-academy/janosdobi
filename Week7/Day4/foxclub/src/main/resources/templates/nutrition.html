@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Fox Club Nutrition Store</title>
@@ -10,14 +10,17 @@
     <li><a href="/">Go Back</a></li>
 </ul>
 
-    <form>
+    <form th:action="@{/changeFood}" th:object="${food}" method="post">
         <label>Food</label>
-        <select name="Food">
+        <select name="name">
             <option value="salad">Salad</option>
             <option value="pizza">Pizza</option>
         </select>
+        <button type="submit">Change</button>
+    </form>
+    <form th:action="@{/changeDrink}" th:object="${drink}" method="post">
         <label>Drink</label>
-        <select name="Drink">
+        <select name="name">
             <option value="water">Water</option>
             <option value="beer">Beer</option>
         </select>
