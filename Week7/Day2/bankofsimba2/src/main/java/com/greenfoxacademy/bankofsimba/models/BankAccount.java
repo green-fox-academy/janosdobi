@@ -1,16 +1,13 @@
 package com.greenfoxacademy.bankofsimba.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+
 
 @AllArgsConstructor
-@Getter
-@Setter
 public class BankAccount {
 
-    private String name;
-    private double balance;
+    private Animal animal;
+    private Double balance;
     private String animalType;
     private boolean isKing;
     private boolean isBadGuy;
@@ -20,18 +17,46 @@ public class BankAccount {
     }
 
     public BankAccount() {
-        this.isKing = false;
-        this.animalType = "lion";
-        this.name = "Mufasa";
-        this.balance = 1000.00;
-        this.isBadGuy = false;
+
     }
 
-    public void raiseTheBalance() {
-        if (!this.isKing) {
-            setBalance(getBalance() + 10.0);
-        } else {
-            setBalance(getBalance() + 100.0);
-        }
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    public String getAnimalType() {
+        return animalType;
+    }
+
+    public void setAnimalType(String animalType) {
+        this.animalType = animalType;
+    }
+
+    public boolean isKing() {
+        return isKing;
+    }
+
+    public void setKing(boolean king) {
+        isKing = king;
+    }
+
+    public boolean isBadGuy() {
+        return isBadGuy;
+    }
+
+    public void setBadGuy(boolean badGuy) {
+        isBadGuy = badGuy;
     }
 }

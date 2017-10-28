@@ -10,21 +10,20 @@
     </head>
 
     <body>
-
-        <table>
-            <tr th:style="${account.king} ? 'color:red' : 'color:black'" th:each="account : ${accounts}">
-                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${accountStat.count}"/>
-                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.name}"/>
-                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.getBalanceInString()}"/>
-                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.animalType}"/>
-                <td style="align-content: center; font-weight: bold; background-color: bisque; border: groove" th:text="${account.badGuy} ? 'Bad Guy' : 'Good Guy'"/>
-            </tr>
-        </table>
-
-        <form action="#" th:action="@{/multiple}" th:each="acc : ${accounts}" th:object="${acc}" method="post">
-            <button style="margin: 5px" type="submit" th:text="'Raise the balance for ' + ${acc.name}"></button>
-        </form>
-
+            <table>
+                <tr th:each="account: ${accounts}" th:object="${account}">
+                    <td th:text="${accountStat.count}"></td>
+                    <td th:text="*{animal}"/>
+                    <td th:text="*{getBalanceInString()}"/>
+                    <td th:text="*{animalType}"/>
+                    <td th:text="*{isBadGuy()} ? 'Bad Guy' : 'Good guy'"/>
+                    <td>
+                        <form action="#" th:action="@{/raise}" method="post">
+                            <input type="text" th:field="*{animal}"/>
+                            <input type="submit" style="height: 30px; width:150px" value="Raise the balance!"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
     </body>
-
 </html>

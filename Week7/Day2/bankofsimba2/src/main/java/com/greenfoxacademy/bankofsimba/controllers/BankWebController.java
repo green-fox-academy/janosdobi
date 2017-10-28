@@ -1,6 +1,8 @@
 package com.greenfoxacademy.bankofsimba.controllers;
 
+import com.greenfoxacademy.bankofsimba.models.Bank;
 import com.greenfoxacademy.bankofsimba.models.BankAccount;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,22 +10,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @Controller
 public class BankWebController {
 
-    List<String> names = Arrays.asList("Scar", "Timon", "Pumba", "Rafiki", "Mufasa");
-    List<Double> money = Arrays.asList(1000.00, 0.00, 0.00, 5000.00, 10000.00);
-    List<String> types = Arrays.asList("lion", "rat", "pig", "monkey", "lion");
+    @Autowired
+    Bank bank;
 
-    List<BankAccount> myAccounts = getAccounts();
+    @Autowired
+    BankAccount account;
 
     @RequestMapping(value="/exercise1")
     public String bankAccount(Model model) {
-        model.addAttribute("account", new BankAccount("Simba", 2000.00, "lion", false, false));
+        model.addAttribute("account", account);
         return "exercise1";
     }
 
@@ -35,33 +33,16 @@ public class BankWebController {
         return "HTMLCeption";
     }
 
-    @GetMapping(value="/multiple")
+
+    @GetMapping(value={"/", ""})
     public String multiple(Model model) {
-        model.addAttribute("accounts", myAccounts);
+        model.addAttribute("accounts", bank.getAccounts());
         return "multiple";
     }
 
-    @PostMapping("/multiple")
-    public String balanceRaise(Model model) {
-        model.addAttribute("accounts", myAccounts);
-        for (int i = 0; i < myAccounts.size(); i++) {
-            myAccounts.get(i).raiseTheBalance();
-        }
-        return "multiple";
-    }
-
-
-    public List<BankAccount> getAccounts() {
-        List<BankAccount> accounts = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            accounts.add(new BankAccount(names.get(i), money.get(i), types.get(i), false, false));
-            if (accounts.get(i).getName().equals("Mufasa")) {
-                accounts.get(i).setKing(true);
-            }
-            if (i % 2 == 0) {
-                accounts.get(i).setBadGuy(true);
-            }
-        }
-        return accounts;
+    @PostMapping(value="/raise")
+    public String balanceRaise(@ModelAttribute BankAccount account) {
+        bank.raiseTheBalance(account);
+        return "redirect:/";
     }
 }
