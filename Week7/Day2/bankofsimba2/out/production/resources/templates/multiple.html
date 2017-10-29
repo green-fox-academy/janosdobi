@@ -11,19 +11,16 @@
 
     <body>
             <table>
-                <tr th:each="account: ${accounts}" th:object="${account}">
-                    <td th:text="${accountStat.count}"></td>
+                <tr th:each="acc: ${accounts}" th:object="${acc}">
+                    <td th:text="${accStat.count}"></td>
                     <td th:text="*{animal}"/>
                     <td th:text="*{getBalanceInString()}"/>
                     <td th:text="*{animalType}"/>
                     <td th:text="*{isBadGuy()} ? 'Bad Guy' : 'Good guy'"/>
                     <td>
-                        <form action="#" th:action="@{/raise}" method="post">
-                            <input type="text" th:field="*{animal}"/>
-                            <input type="text" th:field="*{balance}"/>
-                            <input type="text" th:field="*{animalType}"/>
-                            <input type="text" th:field="*{king}"/>
-                            <input type="text" th:field="*{badGuy}"/>
+                        <form action="#" th:action="@{/raise}" th:object="${acc}" method="post">
+                            <input type="text" id="animal" name="animal" th:value="*{animal}"/>
+                            <input type="text" id="balance" name="balance" th:value="*{balance}"/>
                             <input type="submit" style="height: 30px; width:150px" value="Raise the balance!"/>
                         </form>
                     </td>
