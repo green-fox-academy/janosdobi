@@ -47,7 +47,7 @@ public class Fox {
         this.name = name;
     }
 
-    public void learnTrick(String name) {
-        tricks.add(new Trick(name));
+    public void learnTrick(Trick t) {
+        tricks.add(t);
     }
 }

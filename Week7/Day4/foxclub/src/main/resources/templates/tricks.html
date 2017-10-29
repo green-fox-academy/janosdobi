@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Trick centre</title>
+</head>
+<body>
+
+<ul>
+    <li><a href="/">Information</a></li>
+    <li><a href="/nutrition.html">Nutrition Store</a></li>
+    <li><a href="/tricks.html">Trick centre</a></li>
+</ul>
+
+<form th:action="@{/learn}" th:object="${trick}" method="post">
+    <label>Trick</label>
+    <select name="name">
+        <option value="code in Java">Code in Java</option>
+    </select>
+    <button type="submit">Learn!</button>
+</form>
+
+
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.greenfox.foxclub.controller;
 import com.greenfox.foxclub.model.Drink;
 import com.greenfox.foxclub.model.Food;
 import com.greenfox.foxclub.model.Fox;
+import com.greenfox.foxclub.model.Trick;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,15 @@ public class MainController {
     @Autowired
     Fox fox;
 
+    @Autowired
+    Food food;
+
+    @Autowired
+    Drink drink;
+
+    @Autowired
+    Trick trick;
+
     @GetMapping(value={"", "/"})
     public String index(Model model) {
         model.addAttribute("fox", fox);
@@ -23,7 +33,9 @@ public class MainController {
     }
 
     @GetMapping(value="/nutrition")
-    public String nutrition() {
+    public String nutrition(Model model) {
+        model.addAttribute("food", food);
+        model.addAttribute("drink", drink);
         return "nutrition";
     }
 
@@ -39,4 +51,15 @@ public class MainController {
         return "redirect:/";
     }
 
+    @GetMapping("/tricks")
+    public String tricks(Model model) {
+        model.addAttribute("trick" );
+        return "tricks";
+    }
+
+    @PostMapping
+    public String learnTrick(@ModelAttribute Trick trick) {
+        fox.learnTrick(trick);
+        return "redirect:/";
+    }
 }

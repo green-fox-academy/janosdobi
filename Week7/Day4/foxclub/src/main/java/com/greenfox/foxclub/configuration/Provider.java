@@ -3,6 +3,7 @@ package com.greenfox.foxclub.configuration;
 import com.greenfox.foxclub.model.Drink;
 import com.greenfox.foxclub.model.Food;
 import com.greenfox.foxclub.model.Fox;
+import com.greenfox.foxclub.model.Trick;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,5 +23,10 @@ public class Provider {
     @Bean
     public Drink drink() {
         return new Drink();
+    }
+
+    @Bean
+    public Trick trick() {
+        return new Trick();
     }
 }
