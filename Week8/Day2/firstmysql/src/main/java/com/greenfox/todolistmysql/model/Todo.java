@@ -1,4 +1,4 @@
-package com.greenfox.firstmysql.model;
+package com.greenfox.todolistmysql.model;
 
 import lombok.AllArgsConstructor;
 

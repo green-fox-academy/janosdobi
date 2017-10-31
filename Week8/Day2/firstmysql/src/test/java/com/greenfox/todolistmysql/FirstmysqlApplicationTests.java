@@ -1,4 +1,4 @@
-package com.greenfox.firstmysql;
+package com.greenfox.todolistmysql;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
