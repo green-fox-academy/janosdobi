@@ -9,7 +9,9 @@
 <h1>Update Todo</h1>
 
 <form action="#" th:action="@{/todo/update}" th:object="${todo}" method="post">
-    <p>Todo: <input type="text" th:field="*{title}"/></p>
+    <p>Todo Description <input type="text" th:field="*{title}"/></p>
+    <p>Urgent <input type="checkbox" th:field="*{urgent}" /></p>
+    <p>Done <input type="checkbox" th:field="*{done}" /></p>
     <input type="hidden" th:field="*{id}"/>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>

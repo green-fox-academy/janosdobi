@@ -47,9 +47,13 @@ public class TodoController {
 
     @PostMapping("/update")
     public String update(@RequestParam("id") Long id,
-                       @RequestParam("title") String title) {
+                       @RequestParam("title") String title,
+                         @RequestParam(value="urgent", required=false) boolean urgent,
+                         @RequestParam(value = "done", required = false) boolean done) {
         Todo todo = todorepo.findOne(id);
         todo.setTitle(title);
+        todo.setDone(done);
+        todo.setUrgent(urgent);
         todorepo.save(todo);
         return "redirect:/todo/list";
     }
