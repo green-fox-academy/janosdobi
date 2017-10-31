@@ -38,4 +38,20 @@ public class TodoController {
         return "redirect:/todo/list";
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Todo todo = todorepo.findOne(id);
+        model.addAttribute("todo", todo);
+        return "edit";
+    }
+
+    @PostMapping("/update")
+    public String update(@RequestParam("id") Long id,
+                       @RequestParam("title") String title) {
+        Todo todo = todorepo.findOne(id);
+        todo.setTitle(title);
+        todorepo.save(todo);
+        return "redirect:/todo/list";
+    }
+
 }
