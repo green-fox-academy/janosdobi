@@ -31,10 +31,10 @@ public class TodoController {
         return "create";
     }
 
-    @GetMapping("/byTitle/{title}")
-    public String search(@RequestParam(value = "title") String title) {
-        todorepo.findByTitle(title);
-        return "redirect:/todo/list";
+    @GetMapping("/bytitle")
+    public String search(Model model, String title) {
+        model.addAttribute("todosbytitle", todorepo.findAllByTitle(title));
+        return "bytitle";
     }
 
     @PostMapping("/add")
