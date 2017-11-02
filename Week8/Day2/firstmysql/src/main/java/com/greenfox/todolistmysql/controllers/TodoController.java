@@ -31,6 +31,12 @@ public class TodoController {
         return "create";
     }
 
+    @GetMapping("/isActive")
+    public String search(Model model, boolean active) {
+        model.addAttribute("todosisActive", todorepo.findAllByDone(active));
+        return "activetodos";
+    }
+
     @GetMapping("/bytitle")
     public String search(Model model, String title) {
         model.addAttribute("todosbytitle", todorepo.findAllByTitle(title));

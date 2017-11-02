@@ -2,19 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>My Todo List</title>
+    <title>Active Todos</title>
 </head>
 <body>
-
-<form th:action="@{/todo/bytitle/}">
-    <input type="text" name="title"/>
-    <button type="submit" value="Submit">Search By Title</button>
-</form>
-
-<form th:action="@{/todo/isActive/}">
-    <input type="hidden" name="active" value="false"/>
-    <button type="submit" value="Submit">Give me the active ones!</button>
-</form>
 
 <h1>Todos for today:</h1>
 
@@ -27,7 +17,7 @@
         <th>Urgent</th>
         <th>Assignee</th>
     </tr>
-    <tr th:each="todo : ${todos}" th:object="${todo}">
+    <tr th:each="todo : ${todosisActive}" th:object="${todo}">
         <td th:text="*{id}"/>
         <td th:text="*{title}"/>
         <td th:text="*{done}"/>
