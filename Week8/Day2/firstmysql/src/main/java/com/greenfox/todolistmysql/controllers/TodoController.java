@@ -1,6 +1,8 @@
 package com.greenfox.todolistmysql.controllers;
 
+import com.greenfox.todolistmysql.model.Assignee;
 import com.greenfox.todolistmysql.model.Todo;
+import com.greenfox.todolistmysql.repositories.AssigneeRepo;
 import com.greenfox.todolistmysql.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,13 @@ public class TodoController {
     @Autowired
     private TodoRepository todorepo;
 
+    @Autowired
+    private AssigneeRepo assignees;
+
     @GetMapping({"/", "/list"})
     public String list(Model model) {
         model.addAttribute("todos", todorepo.findAll());
+        model.addAttribute("assignees", assignees.findAll());
         return "todo";
     }
 
@@ -57,5 +63,4 @@ public class TodoController {
         todorepo.save(todo);
         return "redirect:/todo/list";
     }
-
 }
