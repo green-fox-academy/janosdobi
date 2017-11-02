@@ -32,6 +32,12 @@ public class TodoController {
         return "create";
     }
 
+    @RequestMapping("/byTitle/{title}")
+    public String search(@RequestParam(value = "title") String title) {
+        todorepo.findByTitle(title);
+        return "redirect:/todo/list";
+    }
+
     @PostMapping("/add")
     public String greetingSubmit(@ModelAttribute Todo todo) {
         todorepo.save(todo);
@@ -46,8 +52,8 @@ public class TodoController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model) {
-        Todo todo = todorepo.findOne(id);
-        model.addAttribute("todo", todo);
+        model.addAttribute("todo", todorepo.findOne(id));
+        model.addAttribute("assignees", assignees.findAll());
         return "edit";
     }
 
@@ -55,11 +61,13 @@ public class TodoController {
     public String update(@RequestParam("id") Long id,
                        @RequestParam("title") String title,
                          @RequestParam(value="urgent", required=false) boolean urgent,
-                         @RequestParam(value = "done", required = false) boolean done) {
+                         @RequestParam(value = "done", required = false) boolean done,
+                         @RequestParam("id") Long aid){
         Todo todo = todorepo.findOne(id);
         todo.setTitle(title);
         todo.setDone(done);
         todo.setUrgent(urgent);
+        todo.setAssignee(assignees.findOne(aid));
         todorepo.save(todo);
         return "redirect:/todo/list";
     }

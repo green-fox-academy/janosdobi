@@ -13,6 +13,9 @@
     <p>Urgent <input type="checkbox" th:field="*{urgent}" /></p>
     <p>Done <input type="checkbox" th:field="*{done}" /></p>
     <input type="hidden" th:field="*{id}"/>
+    <select name="name"  th:object="${assignees}">
+        <option th:each="assignee : ${assignees}" th:text="${assignee}" th:id="id" th:name="id" th:value="${assignee.id}"/>
+    </select>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 

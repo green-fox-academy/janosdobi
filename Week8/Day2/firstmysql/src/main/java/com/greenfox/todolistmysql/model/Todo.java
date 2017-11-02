@@ -30,4 +30,6 @@ public class Todo {
         this.done = done;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Assignee assignee;
 }
