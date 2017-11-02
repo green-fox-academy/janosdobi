@@ -8,13 +8,13 @@
 
 <h1>Update Todo</h1>
 
-<form action="#" th:action="@{/todo/update}" th:object="${todo}" method="post">
+<form action="#" th:action="@{'/todo/{id}/edit'(id=${todo.id})}" th:object="${todo}" method="post">
     <p>Todo Description <input type="text" th:field="*{title}"/></p>
     <p>Urgent <input type="checkbox" th:field="*{urgent}" /></p>
     <p>Done <input type="checkbox" th:field="*{done}" /></p>
     <input type="hidden" th:field="*{id}"/>
-    <select name="name"  th:object="${assignees}">
-        <option th:each="assignee : ${assignees}" th:text="${assignee}" th:id="id" th:name="id" th:value="${assignee.id}"/>
+    <select th:field="*{assignee}">
+        <option th:each="assigned : ${assignees}" th:text="${assigned}" th:id="id" th:name="id" th:value="${assigned.id}"/>
     </select>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>

@@ -8,7 +8,7 @@
 
 <h1>Update Assignee</h1>
 
-<form action="#" th:action="@{/assignees/update}" th:object="${assignee}" method="post">
+<form action="#" th:action="@{'/assignees/{id}/editAssignee'(id=${assignee.id})}" th:object="${assignee}" method="post">
     <p>Name <input type="text" th:field="*{name}"/></p>
     <p>Name <input type="text" th:field="*{email}"/></p>
     <input type="hidden" th:field="*{id}"/>

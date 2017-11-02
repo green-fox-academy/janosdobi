@@ -39,13 +39,8 @@ public class AssigneeController {
         return "editAssignee";
     }
 
-    @PostMapping("/update")
-    public String update(@RequestParam("id") Long id,
-                         @RequestParam("name") String name,
-                         @RequestParam("email") String email) {
-        Assignee assignee = assignees.findOne(id);
-        assignee.setName(name);
-        assignee.setEmail(email);
+    @PostMapping("/{id}/editAssignee")
+    public String update(Assignee assignee) {
         assignees.save(assignee);
         return "redirect:/assignees";
     }

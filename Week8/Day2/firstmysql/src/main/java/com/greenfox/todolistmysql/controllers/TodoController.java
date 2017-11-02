@@ -1,6 +1,5 @@
 package com.greenfox.todolistmysql.controllers;
 
-import com.greenfox.todolistmysql.model.Assignee;
 import com.greenfox.todolistmysql.model.Todo;
 import com.greenfox.todolistmysql.repositories.AssigneeRepo;
 import com.greenfox.todolistmysql.repositories.TodoRepository;
@@ -32,7 +31,7 @@ public class TodoController {
         return "create";
     }
 
-    @RequestMapping("/byTitle/{title}")
+    @GetMapping("/byTitle/{title}")
     public String search(@RequestParam(value = "title") String title) {
         todorepo.findByTitle(title);
         return "redirect:/todo/list";
@@ -57,17 +56,8 @@ public class TodoController {
         return "edit";
     }
 
-    @PostMapping("/update")
-    public String update(@RequestParam("id") Long id,
-                       @RequestParam("title") String title,
-                         @RequestParam(value="urgent", required=false) boolean urgent,
-                         @RequestParam(value = "done", required = false) boolean done,
-                         @RequestParam("id") Long aid){
-        Todo todo = todorepo.findOne(id);
-        todo.setTitle(title);
-        todo.setDone(done);
-        todo.setUrgent(urgent);
-        todo.setAssignee(assignees.findOne(aid));
+    @PostMapping("/{id}/edit")
+    public String update(@ModelAttribute Todo todo){
         todorepo.save(todo);
         return "redirect:/todo/list";
     }
