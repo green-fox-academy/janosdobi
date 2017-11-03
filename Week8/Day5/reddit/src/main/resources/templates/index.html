@@ -12,10 +12,12 @@
         <th>SCORE</th>
         <th>Actions</th>
         <th>Content</th>
+        <th>Date</th>
         <tr th:each="post :${posts}" th:object="${post}">
             <td th:text="*{score}"/>
             <td><a th:href="@{'/posts/{id}/upvote'(id=${post.id})}">+</a><span>   </span><a th:href="@{'/posts/{id}/downvote'(id=${post.id})}">-</a></td>
             <td th:text="*{content}"/>
+            <td th:text="*{postDate}"/>
         </tr>
     </table>
 </body>
