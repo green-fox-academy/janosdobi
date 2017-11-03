@@ -15,10 +15,11 @@
         <th>Date</th>
         <tr th:each="post :${posts}" th:object="${post}">
             <td th:text="*{score}"/>
-            <td><a th:href="@{'/posts/{id}/upvote'(id=${post.id})}">+</a><span>   </span><a th:href="@{'/posts/{id}/downvote'(id=${post.id})}">-</a></td>
+            <td><a th:href="@{'/posts/{id}/upvote'(id=${post.id})}">+</a><a th:href="@{'/posts/{id}/downvote'(id=${post.id})}">-</a></td>
             <td th:text="*{content}"/>
             <td th:text="*{postDate}"/>
         </tr>
     </table>
+    <a th:href="@{'/posts/?pageId={id}'(id=${pageId - 1})}">Previous page</a><a th:href="@{'/posts/?pageId={id}'(id=${pageId + 1})}">Next page</a>
 </body>
 </html>

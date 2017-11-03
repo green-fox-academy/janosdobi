@@ -10,8 +10,8 @@ public class PostService {
     @Autowired
     private PostRepo postrepo;
 
-    public Iterable<Post> listAllPosts() {
-        return postrepo.listTopTen();
+    public Iterable<Post> listAllPosts(int pageId) {
+        return postrepo.getPostsByPage(pageId * 10);
     }
 
     public void addNewPost(Post post) {

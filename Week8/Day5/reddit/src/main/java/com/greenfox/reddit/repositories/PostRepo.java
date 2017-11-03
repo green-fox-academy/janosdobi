@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PostRepo extends CrudRepository<Post, Long> {
 
-    @Query(value="SELECT * FROM post ORDER BY score DESC LIMIT 10", nativeQuery = true)
-    Iterable<Post> listTopTen();
+    @Query(value="SELECT * FROM post ORDER BY score DESC LIMIT 10 OFFSET ?1", nativeQuery = true)
+    Iterable<Post> getPostsByPage(int pageId);
 }
