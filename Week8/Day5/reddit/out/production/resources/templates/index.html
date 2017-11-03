@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Janos's Reddit Page</title>
 </head>
 <body>
+    <a href="/posts/addPost">Add new post</a>
     <h1>Posts</h1>
+
+    <table>
+        <th>SCORE</th>
+        <th>Actions</th>
+        <th>Content</th>
+        <tr th:each="post :${posts}" th:object="${post}">
+            <td th:text="*{score}"/>
+            <td><a th:href="@{'/posts/{id}/upvote'(id=${post.id})}">+</a><span>   </span><a th:href="@{'/posts/{id}/downvote'(id=${post.id})}">-</a></td>
+            <td th:text="*{content}"/>
+        </tr>
+    </table>
 </body>
 </html>
