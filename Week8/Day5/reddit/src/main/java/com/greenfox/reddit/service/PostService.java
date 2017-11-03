@@ -11,7 +11,7 @@ public class PostService {
     private PostRepo postrepo;
 
     public Iterable<Post> listAllPosts() {
-        return postrepo.findAll();
+        return postrepo.listTopTen();
     }
 
     public void addNewPost(Post post) {
