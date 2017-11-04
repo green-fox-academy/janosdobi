@@ -19,6 +19,7 @@
             <td th:text="*{email}"/>
             <td><a th:href="@{'/assignees/{id}/delete'(id=${assignee.id})}">Delete</a></td>
             <td><a th:href="@{'/assignees/{id}/editAssignee'(id=${assignee.id})}">Edit</a></td>
+            <td>
         </tr>
     </table>
 

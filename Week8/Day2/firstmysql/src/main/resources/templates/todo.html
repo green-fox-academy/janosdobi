@@ -6,15 +6,7 @@
 </head>
 <body>
 
-<form th:action="@{/todo/bytitle/}">
-    <input type="text" name="title"/>
-    <button type="submit" value="Submit">Search By Title</button>
-</form>
-
-<form th:action="@{/todo/isActive/}">
-    <input type="hidden" name="active" value="false"/>
-    <button type="submit" value="Submit">Give me the active ones!</button>
-</form>
+<a href='/todo/?isActive=true'>Show only active todos!</a>
 
 <h1>Todos for today:</h1>
 
