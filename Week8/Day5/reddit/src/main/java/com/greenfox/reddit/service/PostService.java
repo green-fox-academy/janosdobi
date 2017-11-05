@@ -15,6 +15,10 @@ public class PostService {
         return postrepo.getPostsByPage(pageId * 10);
     }
 
+    public Iterable<Post> listByUser(Long userId, int pageId) {
+        return postrepo.getPostsByUser(userId, pageId * 10);
+    }
+
     public void addNewPost(Post post) {
         postrepo.save(post);
     }

@@ -3,11 +3,9 @@ package com.greenfox.reddit.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -20,13 +18,16 @@ public class Post {
 
     private int score;
     private String content;
-    private LocalDate postDate;
+    private LocalDateTime postDate;
+
+    @ManyToOne
+    private User user;
 
     public Post() {
-        postDate = LocalDate.now();
+        postDate = LocalDateTime.now();
     }
 
-    public Post(int score, String content, LocalDate postDate) {
+    public Post(int score, String content, LocalDateTime postDate) {
         this.score = score;
         this.content = content;
         this.postDate = postDate;

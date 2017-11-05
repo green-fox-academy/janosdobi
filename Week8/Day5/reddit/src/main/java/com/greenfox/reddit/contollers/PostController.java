@@ -2,6 +2,7 @@ package com.greenfox.reddit.contollers;
 
 import com.greenfox.reddit.model.Post;
 import com.greenfox.reddit.service.PostService;
+import com.greenfox.reddit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,9 @@ public class PostController {
     @Autowired
     PostService postService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping({"", "/"})
     public String listAllPosts(@RequestParam(value = "pageId", defaultValue = "0") int pageId, Model model) {
         model.addAttribute("posts", postService.listAllPosts(pageId));
@@ -21,9 +25,19 @@ public class PostController {
         return "index";
     }
 
+    @GetMapping("/{userId}")
+    public String listLoggedInUsersPosts(@RequestParam(value = "pageId", defaultValue = "0") int pageId,
+                                         @PathVariable(value = "userId") Long userId,
+                                         Model model) {
+        model.addAttribute("posts", postService.listByUser(userId, pageId));
+        model.addAttribute("pageId", pageId);
+        return "index";
+    }
+
     @GetMapping("/addPost")
     public String addPost(Model model) {
         model.addAttribute("post", new Post());
+        model.addAttribute("users", userService.listAllUsers());
         return "addPost";
     }
 

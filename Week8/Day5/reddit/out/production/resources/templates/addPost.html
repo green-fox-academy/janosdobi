@@ -7,6 +7,10 @@
 <body>
     <form th:action="@{/posts/addPost}" th:object="${post}" method="post">
         <p>Content:  <input th:type="text" th:field="*{content}"/></p>
+        <label>User: </label>
+        <select th:field="*{user}">
+            <option th:each="user : ${users}" th:value="${user.id}" name="id" id="id" th:text="${user.name}"/>
+        </select>
         <input type="submit" value="Add new post!"/>
     </form>
 </body>

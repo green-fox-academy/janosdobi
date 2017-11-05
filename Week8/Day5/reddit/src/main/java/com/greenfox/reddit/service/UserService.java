@@ -12,9 +12,13 @@ public class UserService {
     @Autowired
     private UserRepo userrepo;
 
+    public Iterable<User> listAllUsers() {
+        return userrepo.findAll();
+    }
+
     public String loginUser(String name, User user) {
         if(user.getPassword().equals(userrepo.findUserByName(name).getPassword())){
-            return "posts/";
+            return "posts/" + user.getId();
         } else {
             return "";
         }
@@ -23,5 +27,7 @@ public class UserService {
     public void addnewUser(User user){
         userrepo.save(user);
     }
+
+
 
 }

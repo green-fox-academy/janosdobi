@@ -5,6 +5,8 @@
     <title>Janos's Reddit Page</title>
 </head>
 <body>
+
+    <h1>Welcome!</h1>
     <a href="/posts/addPost">Add new post</a>
     <h1>Posts</h1>
 
@@ -13,11 +15,13 @@
         <th>Actions</th>
         <th>Content</th>
         <th>Date</th>
+        <th>User</th>
         <tr th:each="post :${posts}" th:object="${post}">
             <td th:text="*{score}"/>
             <td><a th:href="@{'/posts/{id}/upvote'(id=${post.id})}">+</a><a th:href="@{'/posts/{id}/downvote'(id=${post.id})}">-</a></td>
             <td th:text="*{content}"/>
             <td th:text="*{postDate}"/>
+            <td th:text="*{user}"/>
         </tr>
     </table>
     <a th:href="@{'/posts/?pageId={id}'(id=${pageId - 1})}">Previous page</a><a th:href="@{'/posts/?pageId={id}'(id=${pageId + 1})}">Next page</a>
