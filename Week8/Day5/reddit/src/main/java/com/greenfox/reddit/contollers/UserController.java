@@ -35,13 +35,9 @@ public class UserController {
         return "redirect:";
     }
 
-    @GetMapping("/unauthorized/")
-    public String unauthorized() {
-        return "unauthorized";
-    }
-
     @PostMapping("/login")
     public String login(@ModelAttribute User user) {
-        return "redirect:/" + userService.loginUser("Jani", user);
+        String name = user.getName();
+        return "redirect:/" + userService.loginUser(name, user);
     }
 }

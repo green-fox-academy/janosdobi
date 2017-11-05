@@ -16,7 +16,7 @@ public class UserService {
         if(user.getPassword().equals(userrepo.findUserByName(name).getPassword())){
             return "posts/";
         } else {
-            return "unauthorized/";
+            return "";
         }
     }
 
