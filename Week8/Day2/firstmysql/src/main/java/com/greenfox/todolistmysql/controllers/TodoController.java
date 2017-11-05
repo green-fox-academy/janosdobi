@@ -19,23 +19,20 @@ public class TodoController {
     private AssigneeRepo assignees;
 
     @GetMapping({"/", "/list"})
-    public String list(Model model,
-                       @RequestParam(value = "isActive", defaultValue = "false") boolean active,
-                       @RequestParam(value="title", defaultValue = "") String title) {
-        model.addAttribute("title", title);
-        if (!active) {
-            model.addAttribute("todos", todorepo.findAll());
-        } else {
-            model.addAttribute("todos", todorepo.findAllActive());
-        }
-        if (title.length()>0) {
-            model.addAttribute("todos", todorepo.findAllByTitle(title));
-        }
+    public String listAll(Model model) {
+        model.addAttribute("todos", todorepo.findAll());
         return "todo";
     }
 
-    @GetMapping("search")
-    public String search(){
+    @GetMapping("/search")
+    public String searchTitle(@RequestParam String search, Model model) {
+        model.addAttribute("todos", todorepo.findAllByTitle(search));
+        return "todo";
+    }
+
+    @GetMapping("/active")
+    public String listActive(Model model) {
+        model.addAttribute("todos", todorepo.findAllActive());
         return "todo";
     }
 

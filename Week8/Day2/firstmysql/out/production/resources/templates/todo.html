@@ -6,7 +6,12 @@
 </head>
 <body>
 
-<a href='/todo/?isActive=true'>Show only active todos!</a>
+<a href='/todo/active'>Show only active todos!</a>
+
+<form action="/todo/search" method="get">
+    <input type="search" name="search" placeholder="Search"/>
+    <button type="submit" value="Submit">Search</button>
+</form>
 
 <h1>Todos for today:</h1>
 
