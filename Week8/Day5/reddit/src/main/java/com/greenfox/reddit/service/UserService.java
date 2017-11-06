@@ -18,7 +18,7 @@ public class UserService {
 
     public String loginUser(String name, User user) {
         if(user.getPassword().equals(userrepo.findUserByName(name).getPassword())){
-            return "posts/" + user.getId();
+            return "posts/user?id=" + user.getId();
         } else {
             return "";
         }
@@ -26,6 +26,10 @@ public class UserService {
 
     public void addnewUser(User user){
         userrepo.save(user);
+    }
+
+    public User findOne(Long id) {
+        return userrepo.findOne(id);
     }
 
 

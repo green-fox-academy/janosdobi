@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user) {
-        String name = user.getName();
-        return "redirect:/" + userService.loginUser(name, user);
+        String loggedInUserPath = userService.loginUser(user.getName(), user);
+        return "redirect:/" + loggedInUserPath;
     }
 }
