@@ -17,10 +17,19 @@ public class UserService {
     }
 
     public String loginUser(String name, User user) {
-        if(user.getPassword().equals(userrepo.findUserByName(name).getPassword())){
+        if(checkPassword(name, user)){
+            user.setId(userrepo.findUserByName(name).getId());
             return "posts/user?id=" + user.getId();
         } else {
             return "";
+        }
+    }
+
+    private boolean checkPassword(String name, User user) {
+        if(user.getPassword().equals(userrepo.findUserByName(name).getPassword())) {
+            return true;
+        } else {
+            return false;
         }
     }
 
