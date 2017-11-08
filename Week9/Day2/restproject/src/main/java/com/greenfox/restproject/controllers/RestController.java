@@ -4,8 +4,6 @@ package com.greenfox.restproject.controllers;
 import com.greenfox.restproject.model.*;
 import com.greenfox.restproject.repositories.LogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,9 +64,6 @@ public class RestController {
         } else {
             return new ErrorMessage("Please provie input!");
         }
-
-
-
     }
 
     @GetMapping("/log")
