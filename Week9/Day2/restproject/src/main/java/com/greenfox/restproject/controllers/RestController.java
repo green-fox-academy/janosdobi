@@ -42,13 +42,17 @@ public class RestController {
 
     @GetMapping("/appenda/{appendable}")
     public Appenda appenda(@PathVariable String appendable) {
-        return new Appenda(appendable);
+        Appenda appenda = new Appenda(appendable);
+        logRepo.save(new Log("/appenda", appenda.toString()));
+        return appenda;
     }
 
     @PostMapping("/dountil/{what}")
     public DoUntilResponse doUntil(
             @PathVariable String what, @RequestBody DoUntilRequest until) {
-        return new DoUntilResponse(what, until);
+        DoUntilResponse doUntilResponse = new DoUntilResponse(what, until);
+        logRepo.save(new Log("/dountil", doUntilResponse.toString()));
+        return doUntilResponse;
     }
 
     @PostMapping("/arrays")

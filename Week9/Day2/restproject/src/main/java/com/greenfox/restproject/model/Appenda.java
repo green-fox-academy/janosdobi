@@ -15,4 +15,9 @@ public class Appenda {
     public void setAppended(String appended) {
         this.appended = appended;
     }
+
+    @Override
+    public String toString() {
+        return appended;
+    }
 }

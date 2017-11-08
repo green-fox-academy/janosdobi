@@ -33,4 +33,10 @@ public class DoUntilResponse {
     public int getResult() {
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(result);
+    }
+
 }
