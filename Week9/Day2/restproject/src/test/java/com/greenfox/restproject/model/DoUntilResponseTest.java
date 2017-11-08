@@ -4,17 +4,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DoUntilTest {
+public class DoUntilResponseTest {
 
     @Test
     public void sum() {
-        DoUntil dou = new DoUntil();
+        DoUntilResponse dou = new DoUntilResponse();
         assertEquals(15, dou.sum(5));
     }
 
     @Test
     public void factor() {
-        DoUntil dou = new DoUntil();
+        DoUntilResponse dou = new DoUntilResponse();
         assertEquals(120, dou.factor(5));
     }
 }

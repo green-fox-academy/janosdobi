@@ -1,10 +1,10 @@
 package com.greenfox.restproject.model;
 
-public class ResultArray {
+public class ArrayResponseInt {
 
     private int result;
 
-    public ResultArray(String what, Integer[] numbers) {
+    public ArrayResponseInt(String what, Integer[] numbers) {
         if (what.equals("sum")) {
             result = sum(numbers);
         } else if (what.equals("multiply")) {

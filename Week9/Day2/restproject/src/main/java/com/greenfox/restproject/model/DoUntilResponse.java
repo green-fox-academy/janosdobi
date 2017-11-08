@@ -1,12 +1,12 @@
 package com.greenfox.restproject.model;
 
-public class DoUntil {
+public class DoUntilResponse {
 
     private int result;
 
-    public DoUntil() {}
+    public DoUntilResponse() {}
 
-    public DoUntil(String method, Until until) {
+    public DoUntilResponse(String method, DoUntilRequest until) {
         if (method.equals("sum")) {
             result = sum(until.getUntil());
         } else if (method.equals("factor")) {

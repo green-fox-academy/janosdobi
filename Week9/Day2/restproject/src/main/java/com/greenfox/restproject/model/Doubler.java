@@ -4,7 +4,6 @@ public class Doubler {
 
     private int received;
     private int result;
-    private String error;
 
     public Doubler(int received) {
         this.received = received;

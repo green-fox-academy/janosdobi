@@ -1,10 +1,10 @@
 package com.greenfox.restproject.model;
 
-public class Errormessage {
+public class ErrorMessage {
 
     private String error;
 
-    public Errormessage(String error) {
+    public ErrorMessage(String error) {
         this.error = error;
     }
 

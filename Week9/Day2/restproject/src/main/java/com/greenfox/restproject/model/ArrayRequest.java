@@ -1,16 +1,16 @@
 package com.greenfox.restproject.model;
 
-public class ArrayHandler {
+public class ArrayRequest {
 
     private String what;
     private Integer[] numbers;
 
-    public ArrayHandler(String what, Integer[] numbers) {
+    public ArrayRequest(String what, Integer[] numbers) {
         this.what = what;
         this.numbers = numbers;
     }
 
-    public ArrayHandler() {
+    public ArrayRequest() {
     }
 
     public String getWhat() {

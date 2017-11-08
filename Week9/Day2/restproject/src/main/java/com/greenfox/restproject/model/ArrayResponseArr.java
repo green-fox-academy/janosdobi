@@ -1,10 +1,10 @@
 package com.greenfox.restproject.model;
 
-public class ReturnArray {
+public class ArrayResponseArr {
 
     private Integer[] numbers;
 
-    public ReturnArray(Integer[] numbers) {
+    public ArrayResponseArr(Integer[] numbers) {
         this.numbers = getDouble(numbers);
     }
 
@@ -21,5 +21,16 @@ public class ReturnArray {
 
     public void setNumbers(Integer[] numbers) {
         this.numbers = numbers;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i : numbers) {
+            sb.append(i + ", ");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
