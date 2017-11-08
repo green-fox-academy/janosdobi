@@ -174,6 +174,46 @@ public class RestControllerTest {
                 .andExpect(jsonPath("$.result", is(18)));
     }
 
+    @Test
+    public void logTesting0() throws Exception {
+
+        mockMvc.perform(get("/log")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.entries[0].id", is(1)));
+    }
+
+    @Test
+    public void logTesting1() throws Exception {
+
+        mockMvc.perform(get("/log")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.entries[0].createdAt", is("2017-11-08T14:46:03.417")));
+    }
+
+    @Test
+    public void logTesting2() throws Exception {
+
+        mockMvc.perform(get("/log")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.entries[2].data", is("18")));
+    }
+
+    @Test
+    public void logTesting3() throws Exception {
+
+        mockMvc.perform(get("/log")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.entries[1].endpoint", is("/arrays")));
+    }
+
     protected String json(Object o) throws IOException {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(

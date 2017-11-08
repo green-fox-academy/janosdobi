@@ -1,15 +1,11 @@
 package com.greenfox.restproject.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Log {
@@ -17,16 +13,14 @@ public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private String endpoint;
     private String data;
 
-    public Log() {
-
-    }
+    public Log() {}
 
     public Log(String endpoint, String data) {
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         this.data = data;
         this.endpoint = endpoint;
     }
@@ -39,11 +33,11 @@ public class Log {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 

@@ -3,12 +3,16 @@ package com.greenfox.restproject.controllers;
 
 import com.greenfox.restproject.model.*;
 import com.greenfox.restproject.repositories.LogRepo;
+import com.greenfox.restproject.service.LogList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
+
+    @Autowired
+    LogRepo logRepo;
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ErrorMessage notReadableError() {
@@ -47,9 +51,6 @@ public class RestController {
         return new DoUntilResponse(what, until);
     }
 
-    @Autowired
-    LogRepo logRepo;
-
     @PostMapping("/arrays")
     public Object arrayHandler(@RequestBody ArrayRequest arrayHandler) {
 
@@ -62,12 +63,17 @@ public class RestController {
             logRepo.save(new Log( "/arrays", arrResponse.toString()));
             return arrResponse;
         } else {
-            return new ErrorMessage("Please provie input!");
+            return new ErrorMessage("Please provide input!");
         }
     }
 
     @GetMapping("/log")
-    public Iterable<Log> log() {
-        return logRepo.findAll();
+    public LogList log() {
+        LogList entries = new LogList();
+        for(Log l : logRepo.findAll()) {
+            entries.addEntry(l);
+        }
+        entries.setEntryCount(entries.getEntries().size());
+        return entries;
     }
 }
