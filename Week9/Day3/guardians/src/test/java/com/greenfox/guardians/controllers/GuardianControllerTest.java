@@ -59,4 +59,24 @@ public class GuardianControllerTest {
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.error", is("I am Groot!")));
     }
+
+    @Test
+    public void yonduNineAndTwentySevenTest() throws Exception {
+        mockMvc.perform(get("/yondu?distance=27&time=9")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.distance", is(27)))
+                .andExpect(jsonPath("$.time", is(9)))
+                .andExpect(jsonPath("$.speed", is(3)));
+    }
+
+    @Test
+    public void yonduDivideZeroTest() throws Exception {
+        mockMvc.perform(get("/yondu?distance=27&time=0")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.error", is("Time cannot be zero!")));
+    }
 }
