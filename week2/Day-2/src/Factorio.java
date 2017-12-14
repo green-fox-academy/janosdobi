@@ -4,6 +4,8 @@
 // - Create a function called `factorio`
 //   that returns it's input's factorial
 
+import java.util.stream.IntStream;
+
 public class Factorio {
     public static void main(String[] args) {
 
@@ -12,10 +14,12 @@ public class Factorio {
     }
 
     public static int factorio(int p) {
-        int fact = 1;
+        /*int fact = 1;
         for (int i = 1; i <= p; i++) {
             fact *= i;
         }
-        return fact;
+        return fact;*/
+
+        return IntStream.rangeClosed(2, p).reduce(1, (x, y) -> x * y);
     }
 }

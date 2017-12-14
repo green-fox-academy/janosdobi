@@ -4,6 +4,8 @@
 // - Write a function called `sum` that sum all the numbers
 //   until the given parameter
 
+import java.util.stream.IntStream;
+
 public class Sum {
     public static void main(String[] args) {
 
@@ -12,11 +14,10 @@ public class Sum {
     }
 
     public static int sum(int p) {
-        int sum = 0;
+/*        int sum = 0;
         for(int i = 1; i <= p; i++) {
             sum += i;
-        }
-        return sum;
+        }*/
+        return IntStream.rangeClosed(1, p).sum();
     }
-
 }

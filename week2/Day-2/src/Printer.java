@@ -11,6 +11,8 @@
 // printer("first", "second", "third", "fourh")
 // ...
 
+import java.util.Arrays;
+
 public class Printer {
     public static void main(String[] args) {
 
@@ -19,8 +21,9 @@ public class Printer {
     }
 
     public static void printer(String... strings) {
-        for (String i : strings) {
-            System.out.println(i);
-        }
+        /*for (String i : strings) {
+            System.out.println(i);*/
+
+        Arrays.stream(strings).forEach(System.out::println);
    }
 }
