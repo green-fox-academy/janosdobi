@@ -10,36 +10,30 @@ Sort that list
         output [5, 9, 12, 24, 34]
 */
 
-
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Bubble {
     public static void main(String[] args) {
 
-        System.out.println(bubbleSort(new int[] {34, 12, 24, 9, 5}));
+        System.out.println(Arrays.toString(bubbleSort(new Integer[] {34, 12, 24, 9, 5})));
 
     }
 
-    public static ArrayList bubbleSort(int[] numbers) {
-
-        int c = 0;
+    public static Integer[] bubbleSort(Integer[] numbers) {
+/*
         for(int i = 0; i < numbers.length - 1; i++) {
             for (int j = 0; j < numbers.length - i -1; j++) {
                 if (numbers[j] > numbers[j + 1]) {
-                    c = numbers[j];
+                    int c = numbers[j];
                     numbers[j] = numbers[j + 1];
                     numbers[j + 1] = c;
                 }
             }
-        }
+        }*/
 
-        ArrayList<Integer> numbersArray = new ArrayList<>();
-        for (int i = 0; i < numbers.length; i++) {
-            numbersArray.add(numbers[i]);
+        Collections.sort(Arrays.asList(numbers));
 
-        }
-
-        return numbersArray;
+        return numbers;
     }
-
 }

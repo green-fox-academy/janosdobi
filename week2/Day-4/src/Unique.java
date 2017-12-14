@@ -9,17 +9,20 @@
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Unique {
     public static void main(String[] args) {
 
-        System.out.println(unifier(new int[] {1, 11, 34, 11, 52, 61, 1, 34}));
+        System.out.println(unifier(Arrays.asList(1, 11, 34, 11, 52, 61, 1, 34)));
 
     }
 
-    public static ArrayList unifier (int[] numbers) {
+    public static List unifier (List<Integer> inputList) {
 
-        ArrayList<Integer> numbersArrayList = new ArrayList<>();
+/*        ArrayList<Integer> numbersArrayList = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
             if (numbersArrayList.contains(numbers[i])) {
 
@@ -28,6 +31,8 @@ public class Unique {
             }
         }
 
-        return numbersArrayList;
+        return numbersArrayList;*/
+
+        return inputList.stream().filter(i -> inputList.contains(i)).collect(Collectors.toList());
     }
 }

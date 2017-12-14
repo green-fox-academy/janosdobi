@@ -8,7 +8,6 @@ Example
 input: "ching", ["this", "is", "what", "I'm", "searching", "in"]
 output: 4*/
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,11 +22,16 @@ public class substrlist {
     public static int stringInList(String inputString, ArrayList<String> inputArray) {
 
         int output = -1;
-        for (int i = 0; i < inputArray.size(); i++) {
+
+        return (int) inputArray.stream()
+                .filter(s -> s.contains(inputString))
+                .count();
+
+/*        for (int i = 0; i < inputArray.size(); i++) {
             if (inputArray.get(i).contains(inputString)) {
                 output = inputArray.indexOf(inputArray.get(i));
             }
         }
-        return output;
+        return output;*/
     }
 }

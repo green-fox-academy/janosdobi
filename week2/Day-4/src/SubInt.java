@@ -10,6 +10,8 @@ output: [0, 1, 4]*/
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SubInt {
     public static void main(String[] args) {
@@ -19,16 +21,22 @@ public class SubInt {
 
     }
 
-    public static ArrayList intIdentifier(ArrayList<Integer> numbersArray, int number) {
+    public static List intIdentifier(ArrayList<Integer> numbers, int number) {
 
-        ArrayList<String> stringArray = new ArrayList<>();
-        ArrayList<Integer> outputArray = new ArrayList<>();
-        for (int i = 0; i < numbersArray.size(); i++) {
-            stringArray.add(numbersArray.get(i).toString());
-            if (stringArray.get(i).contains("" + number)) {
-                outputArray.add(stringArray.indexOf(stringArray.get(i)));
+        ArrayList<String> strings = new ArrayList<>();
+
+        numbers.forEach(n -> strings.add(n.toString()));
+        return strings.stream()
+                .filter(s -> s.contains(Integer.toString(number)))
+                .map(s -> strings.indexOf(s))
+                .collect(Collectors.toList());
+
+/*        ArrayList<Integer> outputArray = new ArrayList<>();
+        for (int i = 0; i < numbers.size(); i++) {
+            if (strings.get(i).contains("" + number)) {
+                outputArray.add(strings.indexOf(strings.get(i)));
             }
         }
-        return outputArray;
+        return outputArray;*/
     }
 }
